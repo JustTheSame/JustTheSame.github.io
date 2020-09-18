@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MySQL的安装与配置</title>
+    <url>/2020/09/17/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="Docker-安装-MySQL"><a href="#Docker-安装-MySQL" class="headerlink" title="Docker 安装 MySQL"></a>Docker 安装 MySQL</h2><p>通过 Docker 搭建 MySQL 数据库环境，同时能同时启动多个 MySQL 版本。在安装前，最好上 <a href="https://hub.docker.com/_/mysql" target="_blank" rel="noopener">docker</a> 官网上看一下 MySQL 的版本，更具具体需求版本安装 MySQL，假设你已经搭建好 Docker 环境下面介绍如何创建一个 MySQL 服务器实例。</p>
+<h3 id="快速启动一个-MySQL-服务实例"><a href="#快速启动一个-MySQL-服务实例" class="headerlink" title="快速启动一个 MySQL 服务实例"></a>快速启动一个 MySQL 服务实例</h3><p>下面，我们通过通过 <a href="https://hub.docker.com/_/mysql" target="_blank" rel="noopener">docker</a> 镜像，或者 <a href="https://hub.docker.com/r/mysql/mysql-server" target="_blank" rel="noopener">MySQL</a> 官方镜像，进行快速启动一个实例。</p>
+<pre class=" language-sh"><code class="language-sh">$ docker search mysql
+NAME                              DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
+mysql                             MySQL is a widely used, open-source relation…   9968                [OK]
+# MySQL 官方镜像
+$ docker image pull mysql:8.0.21</code></pre>
+<p>拉取镜像成功以后，就可以在本机看到这个 <code>image</code> 文件了。</p>
+<pre class=" language-sh"><code class="language-sh">$ docker images
+REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
+mysql                                8.0.21              e1d7dc9731da        6 days ago          544MB</code></pre>
+<p>现在，快速运行这个 <code>image</code> 文件。</p>
+<pre class=" language-sh"><code class="language-sh"># Docker 官方镜像
+$ docker run --name mysql8 \
+  -p 3306:3306 \
+  -e MYSQL_ROOT_PASSWORD=admin \
+  --rm \
+  -d mysql:8.0.21 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci</code></pre>
+<p>上面命令的各个参数含义如下：</p>
+<ul>
+<li><code>--name mysql8 容器的名字叫做 mysql8</code></li>
+<li><code>-p 3306:3306</code> 容器 MySQL 默认端口 <code>3306</code> 射到本机的 <code>3306</code> 端口。</li>
+<li><code>-d</code> 在后台运行容器并打印容器ID。</li>
+<li><code>--rm</code> 停止运行后，自动删除容器文件。</li>
+<li><code>-e MYSQL_ROOT_PASSWORD=admin</code> 设置环境变量 <code>MYSQL_ROOT_PASSWORD</code> 值为 <code>admin</code> 来设置 <code>root</code> 密码，<a href="https://dev.mysql.com/doc/refman/8.0/en/environment-variables.html" target="_blank" rel="noopener">更多环境变量参考</a>。</li>
+<li><code>--character-set-server=utf8mb4 --collation-server=utf8mb4_col</code> 该命令以默认字符集 <code>utf8mb4</code> 和数据库默认排序规则 <code>utf8mb4</code> 启动 <code>MySQL</code> 服务，可以将许多配置选项作为标志传递给 mysqld。这将使您可以灵活地自定义容器，而无需 <code>cnf</code> 配置文件，配置 <code>MySQL Server</code> 的另一种方法是准备一个配置文件，并将其安装在容器内服务器配置文件的位置。有关详细信息，请参见<a href="https://dev.mysql.com/doc/refman/8.0/en/docker-mysql-more-topics.html#docker-persisting-data-configuration" target="_blank" rel="noopener">持久数据和配置更改</a>。</li>
+</ul>
+<p>查看容器运行状态</p>
+<pre class=" language-sh"><code class="language-sh">$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+bce9df21fb98        mysql:8.0.21        "docker-entrypoint.s…"   3 seconds ago       Up 2 seconds        0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8</code></pre>
+<h3 id="使用-docker-compose-部署MySQL"><a href="#使用-docker-compose-部署MySQL" class="headerlink" title="使用 docker-compose 部署MySQL"></a>使用 docker-compose 部署MySQL</h3><p>编辑 <code>docker-compose</code> 文件</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">"3.1"</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">db</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span>8.0.21
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mysql8
+    <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>default<span class="token punctuation">-</span>authentication<span class="token punctuation">-</span>plugin=mysql_native_password
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 3306<span class="token punctuation">:</span><span class="token number">3306</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./conf/my.cnf<span class="token punctuation">:</span>/etc/my.cnf
+      <span class="token punctuation">-</span> ./data<span class="token punctuation">:</span>/var/lib/mysql
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> admin</code></pre>
+<p>运行容器</p>
+<pre class=" language-sh"><code class="language-sh">$ docker-compose up -d
+Creating network "docker-mysql_default" with the default driver
+Creating mysql8 ... done
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+dedd71769326        mysql:8.0.21        "docker-entrypoint.s…"   9 seconds ago       Up 4 seconds        0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8</code></pre>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MySQL的账户设置</title>
     <url>/2020/09/18/MySQL%E7%9A%84%E8%B4%A6%E6%88%B7%E8%AE%BE%E7%BD%AE/</url>
     <content><![CDATA[<p>使用 <code>docker</code> 安装 <code>MySQL</code> 并快速启动，现在我们进入<code>docker</code>容器。</p>
@@ -491,70 +555,6 @@ REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'role3'</code></pre>
 <p>在全局上撤销权限（<em>.</em>）</p>
 <pre class=" language-mysql"><code class="language-mysql">-- 全局上撤销所有权限
 REVOKE ALL ON *.* FROM 'tian'@'localhost';</code></pre>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MySQL的安装与配置</title>
-    <url>/2020/09/17/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h2 id="Docker-安装-MySQL"><a href="#Docker-安装-MySQL" class="headerlink" title="Docker 安装 MySQL"></a>Docker 安装 MySQL</h2><p>通过 Docker 搭建 MySQL 数据库环境，同时能同时启动多个 MySQL 版本。在安装前，最好上 <a href="https://hub.docker.com/_/mysql" target="_blank" rel="noopener">docker</a> 官网上看一下 MySQL 的版本，更具具体需求版本安装 MySQL，假设你已经搭建好 Docker 环境下面介绍如何创建一个 MySQL 服务器实例。</p>
-<h3 id="快速启动一个-MySQL-服务实例"><a href="#快速启动一个-MySQL-服务实例" class="headerlink" title="快速启动一个 MySQL 服务实例"></a>快速启动一个 MySQL 服务实例</h3><p>下面，我们通过通过 <a href="https://hub.docker.com/_/mysql" target="_blank" rel="noopener">docker</a> 镜像，或者 <a href="https://hub.docker.com/r/mysql/mysql-server" target="_blank" rel="noopener">MySQL</a> 官方镜像，进行快速启动一个实例。</p>
-<pre class=" language-sh"><code class="language-sh">$ docker search mysql
-NAME                              DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
-mysql                             MySQL is a widely used, open-source relation…   9968                [OK]
-# MySQL 官方镜像
-$ docker image pull mysql:8.0.21</code></pre>
-<p>拉取镜像成功以后，就可以在本机看到这个 <code>image</code> 文件了。</p>
-<pre class=" language-sh"><code class="language-sh">$ docker images
-REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
-mysql                                8.0.21              e1d7dc9731da        6 days ago          544MB</code></pre>
-<p>现在，快速运行这个 <code>image</code> 文件。</p>
-<pre class=" language-sh"><code class="language-sh"># Docker 官方镜像
-$ docker run --name mysql8 \
-  -p 3306:3306 \
-  -e MYSQL_ROOT_PASSWORD=admin \
-  --rm \
-  -d mysql:8.0.21 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci</code></pre>
-<p>上面命令的各个参数含义如下：</p>
-<ul>
-<li><code>--name mysql8 容器的名字叫做 mysql8</code></li>
-<li><code>-p 3306:3306</code> 容器 MySQL 默认端口 <code>3306</code> 射到本机的 <code>3306</code> 端口。</li>
-<li><code>-d</code> 在后台运行容器并打印容器ID。</li>
-<li><code>--rm</code> 停止运行后，自动删除容器文件。</li>
-<li><code>-e MYSQL_ROOT_PASSWORD=admin</code> 设置环境变量 <code>MYSQL_ROOT_PASSWORD</code> 值为 <code>admin</code> 来设置 <code>root</code> 密码，<a href="https://dev.mysql.com/doc/refman/8.0/en/environment-variables.html" target="_blank" rel="noopener">更多环境变量参考</a>。</li>
-<li><code>--character-set-server=utf8mb4 --collation-server=utf8mb4_col</code> 该命令以默认字符集 <code>utf8mb4</code> 和数据库默认排序规则 <code>utf8mb4</code> 启动 <code>MySQL</code> 服务，可以将许多配置选项作为标志传递给 mysqld。这将使您可以灵活地自定义容器，而无需 <code>cnf</code> 配置文件，配置 <code>MySQL Server</code> 的另一种方法是准备一个配置文件，并将其安装在容器内服务器配置文件的位置。有关详细信息，请参见<a href="https://dev.mysql.com/doc/refman/8.0/en/docker-mysql-more-topics.html#docker-persisting-data-configuration" target="_blank" rel="noopener">持久数据和配置更改</a>。</li>
-</ul>
-<p>查看容器运行状态</p>
-<pre class=" language-sh"><code class="language-sh">$ docker ps
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
-bce9df21fb98        mysql:8.0.21        "docker-entrypoint.s…"   3 seconds ago       Up 2 seconds        0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8</code></pre>
-<h3 id="使用-docker-compose-部署MySQL"><a href="#使用-docker-compose-部署MySQL" class="headerlink" title="使用 docker-compose 部署MySQL"></a>使用 docker-compose 部署MySQL</h3><p>编辑 <code>docker-compose</code> 文件</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">"3.1"</span>
-<span class="token key atrule">services</span><span class="token punctuation">:</span>
-  <span class="token key atrule">db</span><span class="token punctuation">:</span>
-    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span>8.0.21
-    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mysql8
-    <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>default<span class="token punctuation">-</span>authentication<span class="token punctuation">-</span>plugin=mysql_native_password
-    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
-    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> 3306<span class="token punctuation">:</span><span class="token number">3306</span>
-    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> ./conf/my.cnf<span class="token punctuation">:</span>/etc/my.cnf
-      <span class="token punctuation">-</span> ./data<span class="token punctuation">:</span>/var/lib/mysql
-    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
-      <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> admin</code></pre>
-<p>运行容器</p>
-<pre class=" language-sh"><code class="language-sh">$ docker-compose up -d
-Creating network "docker-mysql_default" with the default driver
-Creating mysql8 ... done
-$ docker ps
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
-dedd71769326        mysql:8.0.21        "docker-entrypoint.s…"   9 seconds ago       Up 4 seconds        0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8</code></pre>
 ]]></content>
       <categories>
         <category>数据库</category>
