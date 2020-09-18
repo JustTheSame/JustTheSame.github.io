@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>MySQL的账户设置</title>
+    <url>/2020/09/18/MySQL%E7%9A%84%E8%B4%A6%E6%88%B7%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<p>使用 <code>docker</code> 安装 <code>MySQL</code> 并快速启动，现在我们进入<code>docker</code>容器。</p>
+<pre class=" language-bash"><code class="language-bash">➜  ~ docker <span class="token function">exec</span> -it mysql8 /bin/bash
+root@dedd71769326:/<span class="token comment" spellcheck="true">#</span></code></pre>
+<h2 id="MySQL数据库连接"><a href="#MySQL数据库连接" class="headerlink" title="MySQL数据库连接"></a>MySQL数据库连接</h2><p><strong>MySQL命令语法</strong></p>
+<p>用户名是你登录的用户，主机名或者IP地址为可选项，如果是本地连接则不需要设置，远程连接服务端则需要填写，密码是对应用户的密码。</p>
+<pre class=" language-sql"><code class="language-sql">mysql –u用户名 <span class="token punctuation">[</span>–h主机名或者IP地址<span class="token punctuation">,</span><span class="token operator">-</span>P端口号<span class="token punctuation">]</span> –p密码</code></pre>
+<ul>
+<li><code>-u</code>：登录的用户名。</li>
+<li><code>-h</code>：远程主机名或IP地址，不填写则默认本地地址。</li>
+<li><code>-P</code>：<code>MySQL</code>端口号，默认为3306。</li>
+<li><code>-p</code>：该登录用户对应的登录密码。</li>
+</ul>
+<pre class=" language-mysql"><code class="language-mysql">root@dedd71769326:/# mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.</code></pre>
+<h2 id="MySQL账户查看"><a href="#MySQL账户查看" class="headerlink" title="MySQL账户查看"></a>MySQL账户查看</h2><p>由于 <code>root</code> 权限很高，所以一般项目上会分配不同的账户和权限供程序员操作。</p>
+<h3 id="查看已有账户"><a href="#查看已有账户" class="headerlink" title="查看已有账户"></a>查看已有账户</h3><pre class=" language-mysql"><code class="language-mysql">mysql> select user from mysql.user;
++------------------+
+| user             |
++------------------+
+| root             |
+| mysql.infoschema |
+| mysql.session    |
+| mysql.sys        |
+| root             |
++------------------+
+5 rows in set (0.03 sec)</code></pre>
+<p>为什么有两条 <code>root</code> 信息？我们来详细看一下。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> select user, host from mysql.user;
++------------------+-----------+
+| user             | host      |
++------------------+-----------+
+| root             | %         |
+| mysql.infoschema | localhost |
+| mysql.session    | localhost |
+| mysql.sys        | localhost |
+| root             | localhost |
++------------------+-----------+
+5 rows in set (0.00 sec)</code></pre>
+<p>这里<code>host</code>字段代表允许任意<code>ip地址登录MySQL</code>。目前<code>root</code>账户允许远程和本地登录。</p>
+<h3 id="查看当前账户"><a href="#查看当前账户" class="headerlink" title="查看当前账户"></a>查看当前账户</h3><pre class=" language-mysql"><code class="language-mysql">mysql> select current_user;
++----------------+
+| current_user   |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.00 sec)</code></pre>
+<p>如果我们使用外部电脑连接</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> select current_user;
++----------------+
+| current_user   |
++----------------+
+| root@% |
++----------------+
+1 row in set (0.00 sec)</code></pre>
+<p>则表示当前登陆<code>root</code>账户允许远程和本地登录。</p>
+<h2 id="MySQL账户创建"><a href="#MySQL账户创建" class="headerlink" title="MySQL账户创建"></a>MySQL账户创建</h2><p><strong>MySQL命令语法</strong></p>
+<pre class=" language-mysql"><code class="language-mysql">CREATE USER [IF NOT EXISTS]
+    user [auth_option] [, user [auth_option]] ...
+    DEFAULT ROLE role [, role ] ...
+    [REQUIRE {NONE | tls_option [[AND] tls_option] ...}]
+    [WITH resource_option [resource_option] ...]
+    [password_option | lock_option] ...
+
+user:
+    (see Section 6.2.4, “Specifying Account Names”)
+
+auth_option: {
+    IDENTIFIED BY 'auth_string'
+  | IDENTIFIED WITH auth_plugin
+  | IDENTIFIED WITH auth_plugin BY 'auth_string'
+  | IDENTIFIED WITH auth_plugin AS 'hash_string'
+}
+
+tls_option: {
+   SSL
+ | X509
+ | CIPHER 'cipher'
+ | ISSUER 'issuer'
+ | SUBJECT 'subject'
+}
+
+resource_option: {
+    MAX_QUERIES_PER_HOUR count
+  | MAX_UPDATES_PER_HOUR count
+  | MAX_CONNECTIONS_PER_HOUR count
+  | MAX_USER_CONNECTIONS count
+}
+
+password_option: {
+    PASSWORD EXPIRE [DEFAULT | NEVER | INTERVAL N DAY]
+  | PASSWORD HISTORY {DEFAULT | N}
+  | PASSWORD REUSE INTERVAL {DEFAULT | N DAY}
+  | PASSWORD REQUIRE CURRENT [DEFAULT | OPTIONAL]
+}
+
+lock_option: {
+    ACCOUNT LOCK
+  | ACCOUNT UNLOCK
+}</code></pre>
+<ul>
+<li><p><code>user</code> ：账户名称，语法是 <code>&#39;user_name&#39;@&#39;host_name&#39;</code> ，其中主机地址可以写为 <code>%</code>表示接受任何地址的连接。</p>
+</li>
+<li><p><code>auth_option</code> ：身份验证方式，可以指定密码以及认证插件<code>（mysql_native_password、sha256_password、caching_sha2_password）</code>。</p>
+</li>
+<li><p><code>tls_option</code>： 加密连接选项。</p>
+</li>
+<li><p><code>resource_option</code>： 用户资源限制，比如每小时最大连接数。</p>
+</li>
+<li><p><code>password_option</code>： 密码额外的控制，比如设定失效时间。</p>
+</li>
+<li><p><code>lock_option</code>： 账户锁定选项，由管理员上锁或者解锁 <code>（ACCOUNT LOCK | ACCOUNT UNLOCK）</code>。</p>
+</li>
+</ul>
+<p>最简单的就是指定账户名+密码</p>
+<pre class=" language-mysql"><code class="language-mysql">CREATE USER 'tian'@'localhost' IDENTIFIED BY 'password';</code></pre>
+<p>加上认证插件</p>
+<pre class=" language-mysql"><code class="language-mysql">CREATE USER 'tian'@'localhost' IDENTIFIED WITH sha256_password BY 'password';</code></pre>
+<p>指定密码过期，以便用户第一次使用的时候需要修改密码</p>
+<pre class=" language-mysql"><code class="language-mysql">CREATE USER 'tian'@'localhost' IDENTIFIED BY 'new_password' PASSWORD EXPIRE;</code></pre>
+<p>也可以指定每隔一段时间修改一次新密码</p>
+<pre class=" language-mysql"><code class="language-mysql">CREATE USER 'tian'@'localhost' IDENTIFIED BY 'new_password' PASSWORD EXPIRE INTERVAL 180 DAY;</code></pre>
+<p>可以指定加密连接</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 不使用加密连接
+CREATE USER 'tian'@'localhost' REQUIRE NONE；
+-- 使用加密连接
+CREATE USER 'tian'@'localhost' REQUIRE SSL;
+-- 使用加密连接，并要求客户端提供有效证书
+CREATE USER 'tian'@'localhost' REQUIRE X509;
+
+CREATE USER 'tian'@'localhost' REQUIRE ISSUER 'CA颁发的有效X.509证书';
+
+CREATE USER 'tian'@'localhost' REQUIRE SUBJECT '包含主题的有效X.509证书';
+
+CREATE USER 'tian'@'localhost' REQUIRE CIPHER '指定的加密方法';</code></pre>
+<p>可以指定资源控制</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 单位小时内，账户被允许查询500次，更新100次，单位小时内最大连接数不限制。最大并发连接数不限制
+CREATE USER 'tian'@'localhost' WITH MAX_QUERIES_PER_HOUR 500 MAX_UPDATES_PER_HOUR 100 MAX_CONNECTIONS_PER_HOUR 0 MAX_USER_CONNECTIONS 0；</code></pre>
+<p>可以锁定账户</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 锁定
+CREATE USER 'tian'@'localhost' ACCOUNT LOCK
+-- 解锁
+ALTER USER 'tian'@'localhost' ACCOUNT UNLOCK</code></pre>
+<p>最后完整的命令选项大概这个样子</p>
+<pre class=" language-mysql"><code class="language-mysql">CREATE USER 'user_name'@'host_name' IDENTIFIED [WITH auth_plugin] BY 'auth_string' [REQUIRE NONE(SSL,X509)] [WITH MAX_QUERIES_PER_HOUR count | MAX_UPDATES_PER_HOUR count | MAX_CONNECTIONS_PER_HOUR count | MAX_USER_CONNECTIONS count] [PASSWORD EXPIRE] [ACCOUNT LOCK]</code></pre>
+<p>如果你要删除账户</p>
+<pre class=" language-mysql"><code class="language-mysql">DROP USER 'tian'@'localhost';</code></pre>
+<p>如果你要修改名称</p>
+<pre class=" language-mysql"><code class="language-mysql">RENAME USER 'tian'@'localhost' TO 'tina'@'127.0.0.1';</code></pre>
+<h2 id="MySQL角色创建"><a href="#MySQL角色创建" class="headerlink" title="MySQL角色创建"></a>MySQL角色创建</h2><p>MySQL8里新加入了对于角色的管理，下面就简单的说一下如何使用：<br>角色可以理解为一组权限的集合，然后将角色赋给某个帐户，该帐户就拥有了角色对应的权限，每个帐户可以拥有多个角色，就像游戏里，你可以有很多称号一样。</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 名字规范
+'role_name'@'host_name'
+-- 通常仅使用用户名部分指定角色名称，并隐式使用主机名部分 '%'，主机名部分没有任何意义
+'admin'</code></pre>
+<p>创建角色</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 省略主机名，默认为 '%'
+CREATE ROLE 'admin', 'dev';
+-- 这种也可以，但是没意义
+CREATE ROLE 'app'@'localhost';</code></pre>
+<p>移除角色</p>
+<pre class=" language-mysql"><code class="language-mysql">DROP ROLE 'admin', 'dev';</code></pre>
+<h2 id="MySQL账户更新"><a href="#MySQL账户更新" class="headerlink" title="MySQL账户更新"></a>MySQL账户更新</h2><p><strong>MySQL命令语法</strong></p>
+<pre class=" language-mysql"><code class="language-mysql">ALTER USER [IF EXISTS]
+    user [auth_option] [, user [auth_option]] ...
+    [REQUIRE {NONE | tls_option [[AND] tls_option] ...}]
+    [WITH resource_option [resource_option] ...]
+    [password_option | lock_option] ...
+
+ALTER USER [IF EXISTS] USER() user_func_auth_option
+
+ALTER USER [IF EXISTS]
+    user DEFAULT ROLE
+    {NONE | ALL | role [, role ] ...}
+
+user:
+    (see Section 6.2.4, “Specifying Account Names”)
+
+auth_option: {
+    IDENTIFIED BY 'auth_string'
+        [REPLACE 'current_auth_string']
+        [RETAIN CURRENT PASSWORD]
+  | IDENTIFIED WITH auth_plugin
+  | IDENTIFIED WITH auth_plugin BY 'auth_string'
+        [REPLACE 'current_auth_string']
+        [RETAIN CURRENT PASSWORD]
+  | IDENTIFIED WITH auth_plugin AS 'auth_string'
+  | DISCARD OLD PASSWORD
+}
+
+user_func_auth_option: {
+    IDENTIFIED BY 'auth_string'
+        [REPLACE 'current_auth_string']
+        [RETAIN CURRENT PASSWORD]
+  | DISCARD OLD PASSWORD
+}
+
+tls_option: {
+   SSL
+ | X509
+ | CIPHER 'cipher'
+ | ISSUER 'issuer'
+ | SUBJECT 'subject'
+}
+
+resource_option: {
+    MAX_QUERIES_PER_HOUR count
+  | MAX_UPDATES_PER_HOUR count
+  | MAX_CONNECTIONS_PER_HOUR count
+  | MAX_USER_CONNECTIONS count
+}
+
+password_option: {
+    PASSWORD EXPIRE [DEFAULT | NEVER | INTERVAL N DAY]
+  | PASSWORD HISTORY {DEFAULT | N}
+  | PASSWORD REUSE INTERVAL {DEFAULT | N DAY}
+  | PASSWORD REQUIRE CURRENT [DEFAULT | OPTIONAL]
+}
+
+lock_option: {
+    ACCOUNT LOCK
+  | ACCOUNT UNLOCK
+}</code></pre>
+<p>参数选项参考创建账户。</p>
+<p>修改自己当前的密码</p>
+<pre class=" language-mysql"><code class="language-mysql">ALTER USER USER() IDENTIFIED BY 'new_password';</code></pre>
+<p>修改账户密码</p>
+<pre class=" language-mysql"><code class="language-mysql">ALTER USER 'tian'@'localhost' IDENTIFIED BY 'new_password';</code></pre>
+<p>修改认证插件</p>
+<pre class=" language-mysql"><code class="language-mysql">ALTER USER 'tian'@'localhost' IDENTIFIED WITH mysql_native_password;</code></pre>
+<p>修改密码和插件</p>
+<pre class=" language-mysql"><code class="language-mysql">ALTER USER 'tian'@'localhost' IDENTIFIED WITH mysql_native_password BY 'new_password';</code></pre>
+<p>修改角色</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 授予自定义角色
+ALTER USER 'tian'@'localhost' DEFAULT ROLE your_role_name;
+-- 无角色
+ALTER USER 'tian'@'localhost' DEFAULT ROLE NONE;
+-- 所有角色
+ALTER USER 'tian'@'localhost' DEFAULT ROLE ALL;</code></pre>
+<p>修改加密方式</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 只有账户密码正确，无须加密连接
+ALTER USER 'tian'@'localhost' REQUIRE NONE;
+-- 需要加密连接
+ALTER USER 'tian'@'localhost' REQUIRE SSL;
+...</code></pre>
+<p>修改资源访问</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 单位小时内，最大查询数量和更新数量
+ALTER USER 'tian'@'localhost' WITH MAX_QUERIES_PER_HOUR 500 MAX_UPDATES_PER_HOUR 100;</code></pre>
+<p>指定密码过期</p>
+<pre class=" language-mysql"><code class="language-mysql">ALTER USER 'tian'@'localhost' PASSWORD EXPIRE;</code></pre>
+<p>修改锁定解锁</p>
+<pre class=" language-mysql"><code class="language-mysql">ALTER USER 'tian'@'localhost' ACCOUNT LOCK;
+ALTER USER 'tian'@'localhost' ACCOUNT UNLOCK;</code></pre>
+<h2 id="MySQL账户授权"><a href="#MySQL账户授权" class="headerlink" title="MySQL账户授权"></a>MySQL账户授权</h2><p><strong>MySQL命令语法</strong></p>
+<pre class=" language-mysql"><code class="language-mysql">GRANT
+    priv_type [(column_list)]
+      [, priv_type [(column_list)]] ...
+    ON [object_type] priv_level
+    TO user_or_role [, user_or_role] ...
+    [WITH GRANT OPTION]
+    [AS user
+        [WITH ROLE
+            DEFAULT
+          | NONE
+          | ALL
+          | ALL EXCEPT role [, role ] ...
+          | role [, role ] ...
+        ]
+    ]
+}
+
+GRANT PROXY ON user_or_role
+    TO user_or_role [, user_or_role] ...
+    [WITH GRANT OPTION]
+
+GRANT role [, role] ...
+    TO user_or_role [, user_or_role] ...
+    [WITH ADMIN OPTION]
+
+object_type: {
+    TABLE
+  | FUNCTION
+  | PROCEDURE
+}
+
+priv_level: {
+    *
+  | *.*
+  | db_name.*
+  | db_name.tbl_name
+  | tbl_name
+  | db_name.routine_name
+}
+
+user_or_role: {
+    user
+  | role
+}
+
+user:
+    (see Section 6.2.4, “Specifying Account Names”)
+
+role:
+    (see Section 6.2.5, “Specifying Role Names”)</code></pre>
+<p><code>GRANT</code>语法使得管理员能够授予账户<strong>权限或者角色</strong>，但是<code>GRANT</code><strong>不能</strong>再一个语句中同时授予权限和角色。</p>
+<ul>
+<li><strong>有ON，是授予权限</strong></li>
+<li><strong>无ON，是授予角色</strong></li>
+</ul>
+<pre class=" language-mysql"><code class="language-mysql">-- 授予数据库db1的所有权限给指定账户
+GRANT ALL ON db1.* TO 'tian'@'localhost';
+-- 授予角色给指定的账户
+GRANT 'role1', 'role2' TO 'user1'@'localhost', 'user2'@'localhost';
+-- 授予数据库world的SELECT权限给指定的角色
+GRANT SELECT ON world.* TO 'role3';</code></pre>
+<p> 基本语法</p>
+<pre class=" language-mysql"><code class="language-mysql">GRANT [权限] ON [数据库名].[表名] TO 'user_name'@'localhost' ...;
+-- 授予所有数据库的权限
+GRANT [权限] ON *.* TO 'user_name'@'localhost' ...;</code></pre>
+<p> 注：全局权限是管理或适用于给定服务器上的所有数据库。要分配全局权限，请使用 <code>ON *.*</code>语法</p>
+<p>下面是权限列表</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> show privileges;
++----------------------------+---------------------------------------+-------------------------------------------------------+
+| Privilege                  | Context                               | Comment                                               |
++----------------------------+---------------------------------------+-------------------------------------------------------+
+| Alter                      | Tables                                | To alter the table                                    |
+| Alter routine              | Functions,Procedures                  | To alter or drop stored functions/procedures          |
+| Create                     | Databases,Tables,Indexes              | To create new databases and tables                    |
+| Create routine             | Databases                             | To use CREATE FUNCTION/PROCEDURE                      |
+| Create role                | Server Admin                          | To create new roles                                   |
+| Create temporary tables    | Databases                             | To use CREATE TEMPORARY TABLE                         |
+| Create view                | Tables                                | To create new views                                   |
+| Create user                | Server Admin                          | To create new users                                   |
+| Delete                     | Tables                                | To delete existing rows                               |
+| Drop                       | Databases,Tables                      | To drop databases, tables, and views                  |
+| Drop role                  | Server Admin                          | To drop roles                                         |
+| Event                      | Server Admin                          | To create, alter, drop and execute events             |
+| Execute                    | Functions,Procedures                  | To execute stored routines                            |
+| File                       | File access on server                 | To read and write files on the server                 |
+| Grant option               | Databases,Tables,Functions,Procedures | To give to other users those privileges you possess   |
+| Index                      | Tables                                | To create or drop indexes                             |
+| Insert                     | Tables                                | To insert data into tables                            |
+| Lock tables                | Databases                             | To use LOCK TABLES (together with SELECT privilege)   |
+| Process                    | Server Admin                          | To view the plain text of currently executing queries |
+| Proxy                      | Server Admin                          | To make proxy user possible                           |
+| References                 | Databases,Tables                      | To have references on tables                          |
+| Reload                     | Server Admin                          | To reload or refresh tables, logs and privileges      |
+| Replication client         | Server Admin                          | To ask where the slave or master servers are          |
+| Replication slave          | Server Admin                          | To read binary log events from the master             |
+| Select                     | Tables                                | To retrieve rows from table                           |
+| Show databases             | Server Admin                          | To see all databases with SHOW DATABASES              |
+| Show view                  | Tables                                | To see views with SHOW CREATE VIEW                    |
+| Shutdown                   | Server Admin                          | To shut down the server                               |
+| Super                      | Server Admin                          | To use KILL thread, SET GLOBAL, CHANGE MASTER, etc.   |
+| Trigger                    | Tables                                | To use triggers                                       |
+| Create tablespace          | Server Admin                          | To create/alter/drop tablespaces                      |
+| Update                     | Tables                                | To update existing rows                               |
+| Usage                      | Server Admin                          | No privileges - allow connect only                    |
+| XA_RECOVER_ADMIN           | Server Admin                          |                                                       |
+| SHOW_ROUTINE               | Server Admin                          |                                                       |
+| RESOURCE_GROUP_USER        | Server Admin                          |                                                       |
+| SET_USER_ID                | Server Admin                          |                                                       |
+| SESSION_VARIABLES_ADMIN    | Server Admin                          |                                                       |
+| CLONE_ADMIN                | Server Admin                          |                                                       |
+| PERSIST_RO_VARIABLES_ADMIN | Server Admin                          |                                                       |
+| ROLE_ADMIN                 | Server Admin                          |                                                       |
+| BACKUP_ADMIN               | Server Admin                          |                                                       |
+| CONNECTION_ADMIN           | Server Admin                          |                                                       |
+| RESOURCE_GROUP_ADMIN       | Server Admin                          |                                                       |
+| INNODB_REDO_LOG_ARCHIVE    | Server Admin                          |                                                       |
+| BINLOG_ENCRYPTION_ADMIN    | Server Admin                          |                                                       |
+| REPLICATION_SLAVE_ADMIN    | Server Admin                          |                                                       |
+| SYSTEM_VARIABLES_ADMIN     | Server Admin                          |                                                       |
+| GROUP_REPLICATION_ADMIN    | Server Admin                          |                                                       |
+| SYSTEM_USER                | Server Admin                          |                                                       |
+| APPLICATION_PASSWORD_ADMIN | Server Admin                          |                                                       |
+| TABLE_ENCRYPTION_ADMIN     | Server Admin                          |                                                       |
+| SERVICE_CONNECTION_ADMIN   | Server Admin                          |                                                       |
+| AUDIT_ADMIN                | Server Admin                          |                                                       |
+| BINLOG_ADMIN               | Server Admin                          |                                                       |
+| ENCRYPTION_KEY_ADMIN       | Server Admin                          |                                                       |
+| INNODB_REDO_LOG_ENABLE     | Server Admin                          |                                                       |
+| REPLICATION_APPLIER        | Server Admin                          |                                                       |
++----------------------------+---------------------------------------+-------------------------------------------------------+
+58 rows in set (0.00 sec)</code></pre>
+<p>权限范围示例</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 数据库权限
+GRANT ALL ON mydb.* TO 'user_name'@'host_name';
+-- 表权限
+GRANT ALL ON mydb.mytable TO 'user_name'@'host_name';
+-- 列权限
+GRANT SELECT (col1), INSERT (col1, col2) ON mydb.mytable TO 'user_name'@'host_name';
+
+-- 存储过程权限
+GRANT CREATE ROUTINE ON mydb.* TO 'user_name'@'host_name';
+GRANT EXECUTE ON PROCEDURE mydb.myproc TO 'user_name'@'host_name';</code></pre>
+<p> 授权之后可以使用<code>flush</code>命令使其立即生效</p>
+<pre class=" language-mysql"><code class="language-mysql">FLUSH PRIVILEGES</code></pre>
+<h2 id="FLUSH语法"><a href="#FLUSH语法" class="headerlink" title="FLUSH语法"></a>FLUSH语法</h2><pre class=" language-mysql"><code class="language-mysql">FLUSH [NO_WRITE_TO_BINLOG | LOCAL] {
+    flush_option [, flush_option] ...
+  | tables_option
+}
+
+flush_option: {
+    BINARY LOGS
+  | ENGINE LOGS
+  | ERROR LOGS
+  | GENERAL LOGS
+  | HOSTS
+  | LOGS
+  | PRIVILEGES
+  | OPTIMIZER_COSTS
+  | RELAY LOGS [FOR CHANNEL channel]
+  | SLOW LOGS
+  | STATUS
+  | USER_RESOURCES
+}
+
+tables_option: {
+    TABLES
+  | TABLES tbl_name [, tbl_name] ...
+  | TABLES WITH READ LOCK
+  | TABLES tbl_name [, tbl_name] ... WITH READ LOCK
+  | TABLES tbl_name [, tbl_name] ... FOR EXPORT
+}</code></pre>
+<p><strong>FLUSH PRIVILEGES</strong> 包含以下操作</p>
+<ol>
+<li><p>重新加载<code>mysql</code>系统数据库中的<code>grant</code>表中的权限信息，并清除<code>caching_sha2_password</code>身份验证插件使用的内存缓存。</p>
+</li>
+<li><p>服务器读取包含动态特权分配的<code>global_grants</code>表，并注册其中的任何未注册特权。</p>
+</li>
+<li><p>服务器通过<code>GRANT、CREATE USER、CREATE SERVER和INSTALL PLUGIN</code>语句将信息缓存到内存中。对应的<code>REVOKE、DROP USER、DROP SERVER和UNINSTALL</code>插件语句不会释放这些内存，因此对于执行许多导致缓存的语句实例的服务器，内存使用量将会增加。可以使用刷新特权释放此缓存内存。</p>
+</li>
+</ol>
+<p><strong>FLUSH TABLES</strong> 包含以下操作</p>
+<p>关闭所有打开的表，强制关闭所有正在使用的表，并刷新准备好的语句缓存。</p>
+<h2 id="REVOKE语法"><a href="#REVOKE语法" class="headerlink" title="REVOKE语法"></a>REVOKE语法</h2><p>既然可以授权，那么就可以撤销</p>
+<pre class=" language-mysql"><code class="language-mysql">REVOKE
+    priv_type [(column_list)]
+      [, priv_type [(column_list)]] ...
+    ON [object_type] priv_level
+    FROM user_or_role [, user_or_role] ...
+
+REVOKE ALL [PRIVILEGES], GRANT OPTION
+    FROM user_or_role [, user_or_role] ...
+
+REVOKE PROXY ON user_or_role
+    FROM user_or_role [, user_or_role] ...
+
+REVOKE role [, role ] ...
+    FROM user_or_role [, user_or_role ] ...
+
+user_or_role: {
+    user
+  | role
+}
+
+user:
+    (see Section 6.2.4, “Specifying Account Names”)
+
+role:
+    (see Section 6.2.5, “Specifying Role Names”.</code></pre>
+<p><code>REVOKE</code>可以实现权限或者角色的撤销（前提：拥有GRANT权限和REVOKE权限）</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 撤销用户的INSERT权限
+REVOKE INSERT ON *.* FROM 'tian'@'localhost';
+-- 撤销用户的指定角色
+REVOKE 'role1', 'role2' FROM 'user1'@'localhost', 'user2'@'localhost';
+-- 撤销角色的INSERT权限
+REVOKE SELECT ON world.* FROM 'role3';</code></pre>
+<p>撤销所有权限（只能撤销权限，不能撤销角色）</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 从账户或者角色上撤销所有权限
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM user_or_role [, user_or_role] ...
+-- 撤销账户
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'tian'@'localhost'
+-- 撤销角色
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'role3'</code></pre>
+<p>在全局上撤销权限（<em>.</em>）</p>
+<pre class=" language-mysql"><code class="language-mysql">-- 全局上撤销所有权限
+REVOKE ALL ON *.* FROM 'tian'@'localhost';</code></pre>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL的安装与配置</title>
+    <url>/2020/09/17/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="Docker-安装-MySQL"><a href="#Docker-安装-MySQL" class="headerlink" title="Docker 安装 MySQL"></a>Docker 安装 MySQL</h2><p>通过 Docker 搭建 MySQL 数据库环境，同时能同时启动多个 MySQL 版本。在安装前，最好上 <a href="https://hub.docker.com/_/mysql" target="_blank" rel="noopener">docker</a> 官网上看一下 MySQL 的版本，更具具体需求版本安装 MySQL，假设你已经搭建好 Docker 环境下面介绍如何创建一个 MySQL 服务器实例。</p>
+<h3 id="快速启动一个-MySQL-服务实例"><a href="#快速启动一个-MySQL-服务实例" class="headerlink" title="快速启动一个 MySQL 服务实例"></a>快速启动一个 MySQL 服务实例</h3><p>下面，我们通过通过 <a href="https://hub.docker.com/_/mysql" target="_blank" rel="noopener">docker</a> 镜像，或者 <a href="https://hub.docker.com/r/mysql/mysql-server" target="_blank" rel="noopener">MySQL</a> 官方镜像，进行快速启动一个实例。</p>
+<pre class=" language-sh"><code class="language-sh">$ docker search mysql
+NAME                              DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
+mysql                             MySQL is a widely used, open-source relation…   9968                [OK]
+# MySQL 官方镜像
+$ docker image pull mysql:8.0.21</code></pre>
+<p>拉取镜像成功以后，就可以在本机看到这个 <code>image</code> 文件了。</p>
+<pre class=" language-sh"><code class="language-sh">$ docker images
+REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
+mysql                                8.0.21              e1d7dc9731da        6 days ago          544MB</code></pre>
+<p>现在，快速运行这个 <code>image</code> 文件。</p>
+<pre class=" language-sh"><code class="language-sh"># Docker 官方镜像
+$ docker run --name mysql8 \
+  -p 3306:3306 \
+  -e MYSQL_ROOT_PASSWORD=admin \
+  --rm \
+  -d mysql:8.0.21 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci</code></pre>
+<p>上面命令的各个参数含义如下：</p>
+<ul>
+<li><code>--name mysql8 容器的名字叫做 mysql8</code></li>
+<li><code>-p 3306:3306</code> 容器 MySQL 默认端口 <code>3306</code> 射到本机的 <code>3306</code> 端口。</li>
+<li><code>-d</code> 在后台运行容器并打印容器ID。</li>
+<li><code>--rm</code> 停止运行后，自动删除容器文件。</li>
+<li><code>-e MYSQL_ROOT_PASSWORD=admin</code> 设置环境变量 <code>MYSQL_ROOT_PASSWORD</code> 值为 <code>admin</code> 来设置 <code>root</code> 密码，<a href="https://dev.mysql.com/doc/refman/8.0/en/environment-variables.html" target="_blank" rel="noopener">更多环境变量参考</a>。</li>
+<li><code>--character-set-server=utf8mb4 --collation-server=utf8mb4_col</code> 该命令以默认字符集 <code>utf8mb4</code> 和数据库默认排序规则 <code>utf8mb4</code> 启动 <code>MySQL</code> 服务，可以将许多配置选项作为标志传递给 mysqld。这将使您可以灵活地自定义容器，而无需 <code>cnf</code> 配置文件，配置 <code>MySQL Server</code> 的另一种方法是准备一个配置文件，并将其安装在容器内服务器配置文件的位置。有关详细信息，请参见<a href="https://dev.mysql.com/doc/refman/8.0/en/docker-mysql-more-topics.html#docker-persisting-data-configuration" target="_blank" rel="noopener">持久数据和配置更改</a>。</li>
+</ul>
+<p>查看容器运行状态</p>
+<pre class=" language-sh"><code class="language-sh">$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+bce9df21fb98        mysql:8.0.21        "docker-entrypoint.s…"   3 seconds ago       Up 2 seconds        0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8</code></pre>
+<h3 id="使用-docker-compose-部署MySQL"><a href="#使用-docker-compose-部署MySQL" class="headerlink" title="使用 docker-compose 部署MySQL"></a>使用 docker-compose 部署MySQL</h3><p>编辑 <code>docker-compose</code> 文件</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">"3.1"</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">db</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span>8.0.21
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mysql8
+    <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>default<span class="token punctuation">-</span>authentication<span class="token punctuation">-</span>plugin=mysql_native_password
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 3306<span class="token punctuation">:</span><span class="token number">3306</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./conf/my.cnf<span class="token punctuation">:</span>/etc/my.cnf
+      <span class="token punctuation">-</span> ./data<span class="token punctuation">:</span>/var/lib/mysql
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> admin</code></pre>
+<p>运行容器</p>
+<pre class=" language-sh"><code class="language-sh">$ docker-compose up -d
+Creating network "docker-mysql_default" with the default driver
+Creating mysql8 ... done
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+dedd71769326        mysql:8.0.21        "docker-entrypoint.s…"   9 seconds ago       Up 4 seconds        0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8</code></pre>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+</search>
