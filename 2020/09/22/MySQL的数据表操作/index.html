@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="MySQL," />
 
 
 
@@ -81,13 +81,16 @@
 
 
 
-<meta name="description" content="踏遍青山人未老，风景这边独好。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Just The Same 的 博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="数据表操作每一张数据表都相当于一个文件，在数据表中又分为表结构与表记录。  表结构：包括存储引擎，字段，主外键类型，约束性条件，字符编码等 表记录：数据表中的每一行数据（不包含字段行）     id name gender age    1 Alice female 18   2 Bob male 17   3 Carol male 16   创建数据表创建数据表其实大有讲究，它包括表名称，表字段">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL的数据表操作">
+<meta property="og:url" content="http://yoursite.com/2020/09/22/MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E8%A1%A8%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="Just The Same 的 博客">
-<meta property="og:description" content="踏遍青山人未老，风景这边独好。">
+<meta property="og:description" content="数据表操作每一张数据表都相当于一个文件，在数据表中又分为表结构与表记录。  表结构：包括存储引擎，字段，主外键类型，约束性条件，字符编码等 表记录：数据表中的每一行数据（不包含字段行）     id name gender age    1 Alice female 18   2 Bob male 17   3 Carol male 16   创建数据表创建数据表其实大有讲究，它包括表名称，表字段">
+<meta property="article:published_time" content="2020-09-22T07:41:13.000Z">
+<meta property="article:modified_time" content="2020-09-22T07:42:04.991Z">
 <meta property="article:author" content="Tian">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
 
 
@@ -118,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/09/22/MySQL的数据表操作/"/>
 
 
 
 
 
-  <title>Just The Same 的 博客</title>
+  <title>MySQL的数据表操作 | Just The Same 的 博客</title>
   
 
 
@@ -143,8 +146,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/JustTheSame" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -282,9 +284,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -314,9 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/09/22/MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E8%A1%A8%E6%93%8D%E4%BD%9C/" itemprop="url">MySQL的数据表操作</a></h1>
+          <h1 class="post-title" itemprop="name headline">MySQL的数据表操作</h1>
         
 
         <div class="post-meta">
@@ -419,42 +419,333 @@
       
 
       
-        
-          
-          数据表操作每一张数据表都相当于一个文件，在数据表中又分为表结构与表记录。
+        <h2 id="数据表操作"><a href="#数据表操作" class="headerlink" title="数据表操作"></a>数据表操作</h2><p>每一张数据表都相当于一个文件，在数据表中又分为表结构与表记录。</p>
+<blockquote>
+<p>表结构：包括存储引擎，字段，主外键类型，约束性条件，字符编码等</p>
+<p>表记录：数据表中的每一行数据（不包含字段行）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">name</th>
+<th align="center">gender</th>
+<th align="center">age</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">Alice</td>
+<td align="center">female</td>
+<td align="center">18</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">Bob</td>
+<td align="center">male</td>
+<td align="center">17</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">Carol</td>
+<td align="center">male</td>
+<td align="center">16</td>
+</tr>
+</tbody></table>
+<h3 id="创建数据表"><a href="#创建数据表" class="headerlink" title="创建数据表"></a>创建数据表</h3><p>创建数据表其实大有讲究，它包括表名称，表字段，存储引擎，主外键类型，约束性条件，字符编码等。</p>
+<p>如果<code>InnoDB</code>数据表没有创建主键，那么<code>MySQL</code>会自动创建一个以行号为准的隐藏主键。</p>
+<pre class=" language-mysql"><code class="language-mysql">#语法: []为可选
+create table 表名(
+字段名1 类型[(宽度) 约束条件],
+字段名2 类型[(宽度) 约束条件],
+字段名3 类型[(宽度) 约束条件]
+) [chrset="字符编码"];
 
-表结构：包括存储引擎，字段，主外键类型，约束性条件，字符编码等
-表记录：数据表中的每一行数据（不包含字段行）
+#注意:
+1. 在同一张表中，字段名是不能相同
+2. 宽度和约束条件可选
+3. 字段名和类型是必须的
+4. 表中最后一个字段不要加逗号</code></pre>
+<p>以下示例将演示在<code>school</code>数据库中创建<code>student</code>数据表。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> use school;
+Database changed
+mysql> create table student(
+    ->        name varchar(32),
+    ->        gender enum("male", "female"),
+    ->        age smallint
+    -> );
+Query OK, 0 rows affected (0.18 sec)</code></pre>
+<p>也可以不进入数据库在外部或另外的库中进行创建，那么创建时就应该指定数据库。</p>
+<pre class=" language-mysql"><code class="language-mysql">create table 数据库名.新建的数据表名(
+    字段名1 类型[(宽度) 约束条件],
+    字段名2 类型[(宽度) 约束条件]
+    );</code></pre>
+<h3 id="查看数据表"><a href="#查看数据表" class="headerlink" title="查看数据表"></a>查看数据表</h3><p>在某一数据库中使用<code>show tables;</code>可查看该库下的所有数据表。</p>
+<p>使用<code>show create table 表名;</code>可查看该表的创建信息。</p>
+<p>使用<code>desc 表名;</code>可查看该表的表结构，包括字段，类型，约束条件等信息。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> show tables; # 查看当前库下所有表名
++------------------+
+| Tables_in_school |
++------------------+
+| student          |
++------------------+
+1 row in set (0.01 sec)</code></pre>
+<pre class=" language-mysql"><code class="language-mysql">mysql> show create table student; # 查看student表的创建信息
++---------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                  |
++---------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| student | CREATE TABLE `student` (
+  `name` varchar(32) DEFAULT NULL,
+  `gender` enum('male','female') DEFAULT NULL,
+  `age` smallint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 |
++---------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.05 sec)
 
+mysql> show create table student \G; # 使用\G可将其转换为一行显示
+*************************** 1. row ***************************
+       Table: student
+Create Table: CREATE TABLE `student` (
+  `name` varchar(32) DEFAULT NULL,
+  `gender` enum('male','female') DEFAULT NULL,
+  `age` smallint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+1 row in set (0.00 sec)
 
+ERROR:
+No query specified</code></pre>
+<pre class=" language-mysql"><code class="language-mysql">mysql> desc student; # 查看表结构
++--------+-----------------------+------+-----+---------+-------+
+| Field  | Type                  | Null | Key | Default | Extra |
++--------+-----------------------+------+-----+---------+-------+
+| name   | varchar(32)           | YES  |     | NULL    |       |
+| gender | enum('male','female') | YES  |     | NULL    |       |
+| age    | smallint              | YES  |     | NULL    |       |
++--------+-----------------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)</code></pre>
+<h3 id="修改表名字"><a href="#修改表名字" class="headerlink" title="修改表名字"></a>修改表名字</h3><p> 使用<code>alter table 旧表名 rename 新表名;</code>可修改表名</p>
+<p>以下示例将展示将<code>studnet</code>表名修改为<code>students</code>。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> alter table student rename students;
+Query OK, 0 rows affected (0.07 sec)
 
+mysql> show tables;
++------------------+
+| Tables_in_school |
++------------------+
+| students         |
++------------------+
+1 row in set (0.00 sec)</code></pre>
+<h3 id="清空数据表"><a href="#清空数据表" class="headerlink" title="清空数据表"></a>清空数据表</h3><p>使用<code>truncate 表名</code>可将表中所有记录清空，并将部分结构进行重置（如自增字段会恢复至初始值）。</p>
+<p>以下示例将演示创建出一张<code>temp</code>表并在其中插入一些数据后进行清空操作。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> create table temp(id smallint); # 新建temp表
+Query OK, 0 rows affected (0.04 sec)
 
-id
-name
-gender
-age
+mysql> select * from temp;
+Empty set (0.00 sec)
 
+mysql> insert into temp values (1),(2); # 插入数据
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
 
+mysql> select * from temp;
++------+
+| id   |
++------+
+|    1 |
+|    2 |
++------+
+2 rows in set (0.00 sec)
 
-1
-Alice
-female
-18
+mysql> truncate temp; # 清空操作
+Query OK, 0 rows affected (0.11 sec)
 
+mysql> select * from temp;
+Empty set (0.01 sec)</code></pre>
+<h3 id="删除数据表"><a href="#删除数据表" class="headerlink" title="删除数据表"></a>删除数据表</h3><p>使用<code>drop table 表名;</code>可删除某一数据表，也可使用<code>drop tables 表名1,表名2,表名n</code>进行批量删除的操作。</p>
+<p>以下示例将演示创建出一个<code>temp</code>表再将其进行删除的操作。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> show tables;
++------------------+
+| Tables_in_school |
++------------------+
+| students         |
+| temp             |
++------------------+
+2 rows in set (0.00 sec)
 
-2
-Bob
-male
+mysql> drop table temp; # 删除temp表
+Query OK, 0 rows affected (0.03 sec)
 
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/09/22/MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E8%A1%A8%E6%93%8D%E4%BD%9C/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+mysql> show tables;
++------------------+
+| Tables_in_school |
++------------------+
+| students         |
++------------------+
+1 row in set (0.00 sec)</code></pre>
+<h2 id="复制表操作"><a href="#复制表操作" class="headerlink" title="复制表操作"></a>复制表操作</h2><h3 id="结构复制"><a href="#结构复制" class="headerlink" title="结构复制"></a>结构复制</h3><pre class=" language-mysql"><code class="language-mysql">mysql> create table temp like students; # 结构复制
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_school |
++------------------+
+| students         |
+| temp             |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc temp;
++--------+-----------------------+------+-----+---------+-------+
+| Field  | Type                  | Null | Key | Default | Extra |
++--------+-----------------------+------+-----+---------+-------+
+| name   | varchar(32)           | YES  |     | NULL    |       |
+| gender | enum('male','female') | YES  |     | NULL    |       |
+| age    | smallint              | YES  |     | NULL    |       |
++--------+-----------------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)</code></pre>
+<h3 id="全部复制"><a href="#全部复制" class="headerlink" title="全部复制"></a>全部复制</h3><p>又要复制表结构，又要复制表记录，则使用以下语句（不会复制主键，外键，索引）。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> create table temp select * from students;
+Query OK, 0 rows affected (0.04 sec)</code></pre>
+<h3 id="选择复制"><a href="#选择复制" class="headerlink" title="选择复制"></a>选择复制</h3><p>选择某一字段及其记录进行复制，可使用以下语句。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> create table temp select host,user from mysql.user;
+Query OK, 5 rows affected (0.13 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from temp;
++-----------+------------------+
+| host      | user             |
++-----------+------------------+
+| %         | root             |
+| localhost | mysql.infoschema |
+| localhost | mysql.session    |
+| localhost | mysql.sys        |
+| localhost | root             |
++-----------+------------------+
+5 rows in set (0.00 sec)</code></pre>
+<h2 id="表字段操作"><a href="#表字段操作" class="headerlink" title="表字段操作"></a>表字段操作</h2><p>表字段是属于表结构的一部分，可以将他作为文档的标题。</p>
+<p>其标题下的一行均属于当前字段下的数据。</p>
+<h3 id="新增字段"><a href="#新增字段" class="headerlink" title="新增字段"></a>新增字段</h3><pre class=" language-mysql"><code class="language-mysql"># ==== 增加多个字段  ====
+
+      ALTER TABLE 表名
+                          ADD 字段名  数据类型 [完整性约束条件…],
+                          ADD 字段名  数据类型 [完整性约束条件…];
+
+# ==== 增加单个字段，排在最前面  ====
+
+      ALTER TABLE 表名
+                          ADD 字段名  数据类型 [完整性约束条件…]  FIRST;
+
+# ==== 增加单个字段，排在某一字段后面  ====
+
+      ALTER TABLE 表名
+                          ADD 字段名  数据类型 [完整性约束条件…]  AFTER 字段名;
+</code></pre>
+<p>以下示例将展示为<code>students</code>表新增一个名为<code>id</code>的非空字段，该字段放在最前面，并且在<code>age</code>字段后新增<code>class</code>字段。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> alter table students
+    ->       add id mediumint not null first,
+    ->       add class varchar(12) not null after age
+    -> ;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc students;
++--------+-----------------------+------+-----+---------+-------+
+| Field  | Type                  | Null | Key | Default | Extra |
++--------+-----------------------+------+-----+---------+-------+
+| id     | mediumint             | NO   |     | NULL    |       |
+| name   | varchar(32)           | YES  |     | NULL    |       |
+| gender | enum('male','female') | YES  |     | NULL    |       |
+| age    | smallint              | YES  |     | NULL    |       |
+| class  | varchar(12)           | NO   |     | NULL    |       |
++--------+-----------------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)</code></pre>
+<h3 id="修改字段"><a href="#修改字段" class="headerlink" title="修改字段"></a>修改字段</h3><p>修改字段分为修改字段名或者修改其数据类型。</p>
+<pre class=" language-mysql"><code class="language-mysql"># ==== MODIFY只能修改数据类型及其完整性约束条件 ====  
+
+      ALTER TABLE 表名 
+                          MODIFY  字段名 数据类型 [完整性约束条件…];
+
+# ==== CHANGE能修改字段名、数据类型及其完整性约束条件  ====  
+
+      ALTER TABLE 表名 
+                          CHANGE 旧字段名 新字段名 旧数据类型 [完整性约束条件…];
+      ALTER TABLE 表名 
+                          CHANGE 旧字段名 新字段名 新数据类型 [完整性约束条件…];
+</code></pre>
+<p>以下示例将展示修改<code>id</code>字段为自增主键，并将其名字修改为<code>stu_id</code>。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> alter table students
+    ->       change id stu_id mediumint not null primary key auto_increment first
+    -> ;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc students;
++--------+-----------------------+------+-----+---------+----------------+
+| Field  | Type                  | Null | Key | Default | Extra          |
++--------+-----------------------+------+-----+---------+----------------+
+| stu_id | mediumint             | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(32)           | YES  |     | NULL    |                |
+| gender | enum('male','female') | YES  |     | NULL    |                |
+| age    | smallint              | YES  |     | NULL    |                |
+| class  | varchar(12)           | NO   |     | NULL    |                |
++--------+-----------------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)</code></pre>
+<p>如果不修改名字只修改其原本的类型或完整性约束条件，可使用<code>modify</code>进行操作。</p>
+<h3 id="删除字段"><a href="#删除字段" class="headerlink" title="删除字段"></a>删除字段</h3><p>使用以下命令可删除某一字段。</p>
+<pre class=" language-mysql"><code class="language-mysql">ALTER TABLE 表名 
+                          DROP 字段名;</code></pre>
+<p>以下示例将展示删除<code>class</code>字段。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> alter table students drop class;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc students;
++--------+-----------------------+------+-----+---------+----------------+
+| Field  | Type                  | Null | Key | Default | Extra          |
++--------+-----------------------+------+-----+---------+----------------+
+| stu_id | mediumint             | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(32)           | YES  |     | NULL    |                |
+| gender | enum('male','female') | YES  |     | NULL    |                |
+| age    | smallint              | YES  |     | NULL    |                |
++--------+-----------------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)</code></pre>
+<h2 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h2><h3 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h3><p>以下示例将展示如何将数据表<code>students</code>存储引擎修改为<code>memory</code>。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> alter table students engine="memory";
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table students;
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                           |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| students | CREATE TABLE `students` (
+  `stu_id` mediumint NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL,
+  `gender` enum('male','female') DEFAULT NULL,
+  `age` smallint DEFAULT NULL,
+  PRIMARY KEY (`stu_id`)
+) ENGINE=MEMORY DEFAULT CHARSET=utf8 |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)</code></pre>
+<h3 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h3><p>以下示例将展示如何将数据表<code>students</code>字符编码修改为<code>gbk</code>。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> alter table students charset="gbk";
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table students;
++----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                |
++----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| students | CREATE TABLE `students` (
+  `stu_id` mediumint NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
+  `gender` enum('male','female') CHARACTER SET utf8 DEFAULT NULL,
+  `age` smallint DEFAULT NULL,
+  PRIMARY KEY (`stu_id`)
+) ENGINE=MEMORY DEFAULT CHARSET=gbk |
++----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)</code></pre>
+
       
     </div>
     
@@ -469,394 +760,47 @@ male
 
     <div>
       
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/21/MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Tian">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just The Same 的 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/09/21/MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" itemprop="url">MySQL的数据库操作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-21T10:05:38+08:00">
-                2020-09-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  619
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          
-          查看数据库使用show databases;可查看所有的数据库。
-mysql> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| 
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/09/21/MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/21/MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" rel="next" title="MySQL的数据库操作">
+                <i class="fa fa-chevron-left"></i> MySQL的数据库操作
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/18/MySQL%E7%9A%84%E8%B4%A6%E6%88%B7%E8%AE%BE%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Tian">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just The Same 的 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/09/18/MySQL%E7%9A%84%E8%B4%A6%E6%88%B7%E8%AE%BE%E7%BD%AE/" itemprop="url">MySQL的账户设置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-18T10:49:01+08:00">
-                2020-09-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.8k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  13
-                </span>
-              
-            </div>
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          使用 docker 安装 MySQL 并快速启动，现在我们进入docker容器。
-➜  ~ docker exec -it mysql8 /bin/bash
-root@dedd71769326:/#
-MySQL数据库连接MySQL命令语法
-用户名是你登录的用户，主机名或者IP地址为可选项，如果是本地
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/09/18/MySQL%E7%9A%84%E8%B4%A6%E6%88%B7%E8%AE%BE%E7%BD%AE/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -866,193 +810,11 @@ MySQL数据库连接MySQL命令语法
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/17/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Tian">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just The Same 的 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/09/17/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" itemprop="url">MySQL的安装与配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-17T09:52:47+08:00">
-                2020-09-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  600
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          Docker 安装 MySQL通过 Docker 搭建 MySQL 数据库环境，同时能同时启动多个 MySQL 版本。在安装前，最好上 docker 官网上看一下 MySQL 的版本，更具具体需求版本安装 MySQL，假设你已经搭建好 Docker 环境下面介绍如何创建一个 MySQL 服务器实例。
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/09/17/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -1060,6 +822,10 @@ MySQL数据库连接MySQL命令语法
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1080,8 +846,17 @@ MySQL数据库连接MySQL命令语法
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1176,6 +951,22 @@ MySQL数据库连接MySQL命令语法
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据表操作"><span class="nav-number">1.</span> <span class="nav-text">数据表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据表"><span class="nav-number">1.1.</span> <span class="nav-text">创建数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看数据表"><span class="nav-number">1.2.</span> <span class="nav-text">查看数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改表名字"><span class="nav-number">1.3.</span> <span class="nav-text">修改表名字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清空数据表"><span class="nav-number">1.4.</span> <span class="nav-text">清空数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除数据表"><span class="nav-number">1.5.</span> <span class="nav-text">删除数据表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制表操作"><span class="nav-number">2.</span> <span class="nav-text">复制表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构复制"><span class="nav-number">2.1.</span> <span class="nav-text">结构复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全部复制"><span class="nav-number">2.2.</span> <span class="nav-text">全部复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择复制"><span class="nav-number">2.3.</span> <span class="nav-text">选择复制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表字段操作"><span class="nav-number">3.</span> <span class="nav-text">表字段操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新增字段"><span class="nav-number">3.1.</span> <span class="nav-text">新增字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改字段"><span class="nav-number">3.2.</span> <span class="nav-text">修改字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除字段"><span class="nav-number">3.3.</span> <span class="nav-text">删除字段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他操作"><span class="nav-number">4.</span> <span class="nav-text">其他操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#存储引擎"><span class="nav-number">4.1.</span> <span class="nav-text">存储引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符编码"><span class="nav-number">4.2.</span> <span class="nav-text">字符编码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1361,6 +1152,10 @@ MySQL数据库连接MySQL命令语法
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
