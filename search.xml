@@ -65,117 +65,6 @@ dedd71769326        mysql:8.0.21        "docker-entrypoint.s…"   9 seconds ago
       </tags>
   </entry>
   <entry>
-    <title>MySQL的数据库操作</title>
-    <url>/2020/09/21/MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h2 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h2><p>使用<code>show databases;</code>可查看所有的数据库。</p>
-<pre class=" language-mysql"><code class="language-mysql">mysql> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-| performance_schema |
-| sys                |
-+--------------------+
-4 rows in set (0.03 sec)</code></pre>
-<p>使用<code>show create database 数据库名;</code>可查看某一数据库的创建信息。</p>
-<pre class=" language-mysql"><code class="language-mysql">mysql> show create database mysql;
-+----------+---------------------------------------------------------------------------------------------------------------------------------+
-| Database | Create Database                                                                                                                 |
-+----------+---------------------------------------------------------------------------------------------------------------------------------+
-| mysql    | CREATE DATABASE `mysql` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */ |
-+----------+---------------------------------------------------------------------------------------------------------------------------------+
-1 row in set (0.01 sec)</code></pre>
-<p>使用<code>select database();</code>可查看当前所在的数据库。</p>
-<pre class=" language-mysql"><code class="language-mysql">mysql> select database();
-+------------+
-| database() |
-+------------+
-| mysql      |
-+------------+
-1 row in set (0.00 sec)</code></pre>
-<p>使用<code>show variables like &#39;character%&#39;;</code>可查看数据库编码集。</p>
-<pre class=" language-mysql"><code class="language-mysql">mysql> show variables like 'character%';
-+--------------------------+--------------------------------+
-| Variable_name            | Value                          |
-+--------------------------+--------------------------------+
-| character_set_client     | latin1                         |
-| character_set_connection | latin1                         |
-| character_set_database   | utf8mb4                        |
-| character_set_filesystem | binary                         |
-| character_set_results    | latin1                         |
-| character_set_server     | utf8mb4                        |
-| character_set_system     | utf8                           |
-| character_sets_dir       | /usr/share/mysql-8.0/charsets/ |
-+--------------------------+--------------------------------+
-8 rows in set (0.00 sec)</code></pre>
-<h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><p>使用<code>create database 数据库名 charset 字符编码;</code>可创建数据库。</p>
-<p>命名规则：</p>
-<ul>
-<li>数字、字母、下划线，<code>＠</code>、<code>＃</code>、<code>＄</code>。</li>
-<li>库名区分字母大小写。</li>
-<li>不能使用特殊字符和mysql关键字，不能单独使用数字，最长128位。</li>
-</ul>
-<pre class=" language-mysql"><code class="language-mysql">mysql> create database students charset utf8;
-Query OK, 1 row affected, 1 warning (0.05 sec)</code></pre>
-<h2 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a>切换数据库</h2><p>使用<code>use 数据库名;</code>可进入指定的数据库。</p>
-<pre class=" language-mysql"><code class="language-mysql">mysql> use students;
-Database changed
-mysql> select database();
-+------------+
-| database() |
-+------------+
-| students   |
-+------------+
-1 row in set (0.00 sec)</code></pre>
-<h2 id="修改数据库"><a href="#修改数据库" class="headerlink" title="修改数据库"></a>修改数据库</h2><p>使用<code>alter database 数据库名 charset 字符编码;</code></p>
-<pre class=" language-mysql"><code class="language-mysql">mysql> show create database students;
-+----------+------------------------------------------------------------------------------------------------------+
-| Database | Create Database                                                                                      |
-+----------+------------------------------------------------------------------------------------------------------+
-| students | CREATE DATABASE `students` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */ |
-+----------+------------------------------------------------------------------------------------------------------+
-1 row in set (0.00 sec)
-
-mysql> alter database students charset=gbk;
-Query OK, 1 row affected (0.01 sec)
-
-mysql> show create database students;
-+----------+-----------------------------------------------------------------------------------------------------+
-| Database | Create Database                                                                                     |
-+----------+-----------------------------------------------------------------------------------------------------+
-| students | CREATE DATABASE `students` /*!40100 DEFAULT CHARACTER SET gbk */ /*!80016 DEFAULT ENCRYPTION='N' */ |
-+----------+-----------------------------------------------------------------------------------------------------+
-1 row in set (0.00 sec)</code></pre>
-<h2 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h2><p>使用<code>drop database 数据库名;</code>可对数据库进行删除操作。</p>
-<p>为了防止删除不存在的数据库报错可以使用<code>if</code>判断要执行删除的数据库是否存在，<code>drop database if exists 数据库名;</code></p>
-<pre class=" language-mysql"><code class="language-mysql">mysql> drop database if exists students;
-Query OK, 0 rows affected (0.09 sec)
-
-mysql> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-| performance_schema |
-| sys                |
-+--------------------+
-4 rows in set (0.00 sec)</code></pre>
-<h2 id="系统库"><a href="#系统库" class="headerlink" title="系统库"></a>系统库</h2><p><code>MySQL</code>在初始化后会创建一些系统库，不同的系统库有不同的用处。</p>
-<p><code>information_schema</code>： 虚拟库，不占用磁盘空间，存储的是数据库启动后的一些参数，如用户表信息、列信息、权限信息、字符信息等。</p>
-<p><code>performance_schema</code>： <code>MySQL5.5</code>开始新增一个数据库：主要用于收集数据库服务器性能参数，记录处理查询请求时发生的各种事件、锁等现象。</p>
-<p><code>mysql</code>： 授权库，主要存储系统用户的权限信息</p>
-<p><code>sys</code>：系统库使用基础环境。</p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL的数值类型</title>
     <url>/2020/09/24/MySQL%E7%9A%84%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<h2 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h2><p>整数类型包含<code>TINYINT</code>、<code>SMALLINT</code>、<code>MEDIUMINT</code>、<code>INT</code>、 <code>BIGINT</code>等。</p>
@@ -436,6 +325,117 @@ mysql> select bin(num),hex(num) from test;
 | 1000     | 8        |
 +----------+----------+
 2 rows in set (0.00 sec)</code></pre>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL的数据库操作</title>
+    <url>/2020/09/21/MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h2 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h2><p>使用<code>show databases;</code>可查看所有的数据库。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.03 sec)</code></pre>
+<p>使用<code>show create database 数据库名;</code>可查看某一数据库的创建信息。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> show create database mysql;
++----------+---------------------------------------------------------------------------------------------------------------------------------+
+| Database | Create Database                                                                                                                 |
++----------+---------------------------------------------------------------------------------------------------------------------------------+
+| mysql    | CREATE DATABASE `mysql` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */ |
++----------+---------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)</code></pre>
+<p>使用<code>select database();</code>可查看当前所在的数据库。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> select database();
++------------+
+| database() |
++------------+
+| mysql      |
++------------+
+1 row in set (0.00 sec)</code></pre>
+<p>使用<code>show variables like &#39;character%&#39;;</code>可查看数据库编码集。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> show variables like 'character%';
++--------------------------+--------------------------------+
+| Variable_name            | Value                          |
++--------------------------+--------------------------------+
+| character_set_client     | latin1                         |
+| character_set_connection | latin1                         |
+| character_set_database   | utf8mb4                        |
+| character_set_filesystem | binary                         |
+| character_set_results    | latin1                         |
+| character_set_server     | utf8mb4                        |
+| character_set_system     | utf8                           |
+| character_sets_dir       | /usr/share/mysql-8.0/charsets/ |
++--------------------------+--------------------------------+
+8 rows in set (0.00 sec)</code></pre>
+<h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><p>使用<code>create database 数据库名 charset 字符编码;</code>可创建数据库。</p>
+<p>命名规则：</p>
+<ul>
+<li>数字、字母、下划线，<code>＠</code>、<code>＃</code>、<code>＄</code>。</li>
+<li>库名区分字母大小写。</li>
+<li>不能使用特殊字符和mysql关键字，不能单独使用数字，最长128位。</li>
+</ul>
+<pre class=" language-mysql"><code class="language-mysql">mysql> create database students charset utf8;
+Query OK, 1 row affected, 1 warning (0.05 sec)</code></pre>
+<h2 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a>切换数据库</h2><p>使用<code>use 数据库名;</code>可进入指定的数据库。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> use students;
+Database changed
+mysql> select database();
++------------+
+| database() |
++------------+
+| students   |
++------------+
+1 row in set (0.00 sec)</code></pre>
+<h2 id="修改数据库"><a href="#修改数据库" class="headerlink" title="修改数据库"></a>修改数据库</h2><p>使用<code>alter database 数据库名 charset 字符编码;</code></p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> show create database students;
++----------+------------------------------------------------------------------------------------------------------+
+| Database | Create Database                                                                                      |
++----------+------------------------------------------------------------------------------------------------------+
+| students | CREATE DATABASE `students` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */ |
++----------+------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter database students charset=gbk;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show create database students;
++----------+-----------------------------------------------------------------------------------------------------+
+| Database | Create Database                                                                                     |
++----------+-----------------------------------------------------------------------------------------------------+
+| students | CREATE DATABASE `students` /*!40100 DEFAULT CHARACTER SET gbk */ /*!80016 DEFAULT ENCRYPTION='N' */ |
++----------+-----------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)</code></pre>
+<h2 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h2><p>使用<code>drop database 数据库名;</code>可对数据库进行删除操作。</p>
+<p>为了防止删除不存在的数据库报错可以使用<code>if</code>判断要执行删除的数据库是否存在，<code>drop database if exists 数据库名;</code></p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> drop database if exists students;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)</code></pre>
+<h2 id="系统库"><a href="#系统库" class="headerlink" title="系统库"></a>系统库</h2><p><code>MySQL</code>在初始化后会创建一些系统库，不同的系统库有不同的用处。</p>
+<p><code>information_schema</code>： 虚拟库，不占用磁盘空间，存储的是数据库启动后的一些参数，如用户表信息、列信息、权限信息、字符信息等。</p>
+<p><code>performance_schema</code>： <code>MySQL5.5</code>开始新增一个数据库：主要用于收集数据库服务器性能参数，记录处理查询请求时发生的各种事件、锁等现象。</p>
+<p><code>mysql</code>： 授权库，主要存储系统用户的权限信息</p>
+<p><code>sys</code>：系统库使用基础环境。</p>
 ]]></content>
       <categories>
         <category>数据库</category>
