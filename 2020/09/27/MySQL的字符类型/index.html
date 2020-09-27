@@ -81,14 +81,14 @@
 
 
 
-<meta name="description" content="使用 docker 安装 MySQL 并快速启动，现在我们进入docker容器。 ➜  ~ docker exec -it mysql8 &#x2F;bin&#x2F;bash root@dedd71769326:&#x2F;# MySQL数据库连接MySQL命令语法 用户名是你登录的用户，主机名或者IP地址为可选项，如果是本地连接则不需要设置，远程连接服务端则需要填写，密码是对应用户的密码。 mysql –u用户名 [–h主">
+<meta name="description" content="字符类型MySQL提供了多种关于字符存储的类型，但是在大多数情况下我们只使用char和varchar即可。    类型 大小 用途    CHAR 0 - 255字节 定长字符串   VARCHAR 0 - 65535 字节 变长字符串   TINYBLOB 0 - 255字节 不超过 255 个字符的二进制字符串   TINYTEXT 0 - 255字节 短文本字符串   BLOB 0 - 65">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL的账户设置">
-<meta property="og:url" content="http://yoursite.com/2020/09/18/MySQL%E7%9A%84%E8%B4%A6%E6%88%B7%E8%AE%BE%E7%BD%AE/index.html">
+<meta property="og:title" content="MySQL的字符类型">
+<meta property="og:url" content="http://yoursite.com/2020/09/27/MySQL%E7%9A%84%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Just The Same 的 博客">
-<meta property="og:description" content="使用 docker 安装 MySQL 并快速启动，现在我们进入docker容器。 ➜  ~ docker exec -it mysql8 &#x2F;bin&#x2F;bash root@dedd71769326:&#x2F;# MySQL数据库连接MySQL命令语法 用户名是你登录的用户，主机名或者IP地址为可选项，如果是本地连接则不需要设置，远程连接服务端则需要填写，密码是对应用户的密码。 mysql –u用户名 [–h主">
-<meta property="article:published_time" content="2020-09-18T02:49:01.000Z">
-<meta property="article:modified_time" content="2020-09-18T02:50:24.281Z">
+<meta property="og:description" content="字符类型MySQL提供了多种关于字符存储的类型，但是在大多数情况下我们只使用char和varchar即可。    类型 大小 用途    CHAR 0 - 255字节 定长字符串   VARCHAR 0 - 65535 字节 变长字符串   TINYBLOB 0 - 255字节 不超过 255 个字符的二进制字符串   TINYTEXT 0 - 255字节 短文本字符串   BLOB 0 - 65">
+<meta property="article:published_time" content="2020-09-27T03:30:40.000Z">
+<meta property="article:modified_time" content="2020-09-27T03:31:51.252Z">
 <meta property="article:author" content="Tian">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/09/18/MySQL的账户设置/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/09/27/MySQL的字符类型/"/>
 
 
 
 
 
-  <title>MySQL的账户设置 | Just The Same 的 博客</title>
+  <title>MySQL的字符类型 | Just The Same 的 博客</title>
   
 
 
@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/18/MySQL%E7%9A%84%E8%B4%A6%E6%88%B7%E8%AE%BE%E7%BD%AE/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/27/MySQL%E7%9A%84%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Tian">
@@ -316,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MySQL的账户设置</h1>
+          <h1 class="post-title" itemprop="name headline">MySQL的字符类型</h1>
         
 
         <div class="post-meta">
@@ -328,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-18T10:49:01+08:00">
-                2020-09-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-27T11:30:40+08:00">
+                2020-09-27
               </time>
             
 
@@ -368,7 +368,7 @@
 
           
           
-             <span id="/2020/09/18/MySQL%E7%9A%84%E8%B4%A6%E6%88%B7%E8%AE%BE%E7%BD%AE/" class="leancloud_visitors" data-flag-title="MySQL的账户设置">
+             <span id="/2020/09/27/MySQL%E7%9A%84%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B/" class="leancloud_visitors" data-flag-title="MySQL的字符类型">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -393,7 +393,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.8k
+                  1.6k
                 </span>
               
 
@@ -409,7 +409,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  13
+                  6
                 </span>
               
             </div>
@@ -430,494 +430,245 @@
       
 
       
-        <p>使用 <code>docker</code> 安装 <code>MySQL</code> 并快速启动，现在我们进入<code>docker</code>容器。</p>
-<pre class=" language-bash"><code class="language-bash">➜  ~ docker <span class="token function">exec</span> -it mysql8 /bin/bash
-root@dedd71769326:/<span class="token comment" spellcheck="true">#</span></code></pre>
-<h2 id="MySQL数据库连接"><a href="#MySQL数据库连接" class="headerlink" title="MySQL数据库连接"></a>MySQL数据库连接</h2><p><strong>MySQL命令语法</strong></p>
-<p>用户名是你登录的用户，主机名或者IP地址为可选项，如果是本地连接则不需要设置，远程连接服务端则需要填写，密码是对应用户的密码。</p>
-<pre class=" language-sql"><code class="language-sql">mysql –u用户名 <span class="token punctuation">[</span>–h主机名或者IP地址<span class="token punctuation">,</span><span class="token operator">-</span>P端口号<span class="token punctuation">]</span> –p密码</code></pre>
-<ul>
-<li><code>-u</code>：登录的用户名。</li>
-<li><code>-h</code>：远程主机名或IP地址，不填写则默认本地地址。</li>
-<li><code>-P</code>：<code>MySQL</code>端口号，默认为3306。</li>
-<li><code>-p</code>：该登录用户对应的登录密码。</li>
-</ul>
-<pre class=" language-mysql"><code class="language-mysql">root@dedd71769326:/# mysql -u root -p
-Enter password:
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 9
-Server version: 8.0.21 MySQL Community Server - GPL
-
-Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.</code></pre>
-<h2 id="MySQL账户查看"><a href="#MySQL账户查看" class="headerlink" title="MySQL账户查看"></a>MySQL账户查看</h2><p>由于 <code>root</code> 权限很高，所以一般项目上会分配不同的账户和权限供程序员操作。</p>
-<h3 id="查看已有账户"><a href="#查看已有账户" class="headerlink" title="查看已有账户"></a>查看已有账户</h3><pre class=" language-mysql"><code class="language-mysql">mysql> select user from mysql.user;
-+------------------+
-| user             |
-+------------------+
-| root             |
-| mysql.infoschema |
-| mysql.session    |
-| mysql.sys        |
-| root             |
-+------------------+
-5 rows in set (0.03 sec)</code></pre>
-<p>为什么有两条 <code>root</code> 信息？我们来详细看一下。</p>
-<pre class=" language-mysql"><code class="language-mysql">mysql> select user, host from mysql.user;
-+------------------+-----------+
-| user             | host      |
-+------------------+-----------+
-| root             | %         |
-| mysql.infoschema | localhost |
-| mysql.session    | localhost |
-| mysql.sys        | localhost |
-| root             | localhost |
-+------------------+-----------+
-5 rows in set (0.00 sec)</code></pre>
-<p>这里<code>host</code>字段代表允许任意<code>ip地址登录MySQL</code>。目前<code>root</code>账户允许远程和本地登录。</p>
-<h3 id="查看当前账户"><a href="#查看当前账户" class="headerlink" title="查看当前账户"></a>查看当前账户</h3><pre class=" language-mysql"><code class="language-mysql">mysql> select current_user;
-+----------------+
-| current_user   |
-+----------------+
-| root@localhost |
-+----------------+
+        <h2 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h2><p><code>MySQL</code>提供了多种关于字符存储的类型，但是在大多数情况下我们只使用<code>char</code>和<code>varchar</code>即可。</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">大小</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">CHAR</td>
+<td align="left">0 - 255字节</td>
+<td align="left">定长字符串</td>
+</tr>
+<tr>
+<td align="left">VARCHAR</td>
+<td align="left">0 - 65535 字节</td>
+<td align="left">变长字符串</td>
+</tr>
+<tr>
+<td align="left">TINYBLOB</td>
+<td align="left">0 - 255字节</td>
+<td align="left">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td align="left">TINYTEXT</td>
+<td align="left">0 - 255字节</td>
+<td align="left">短文本字符串</td>
+</tr>
+<tr>
+<td align="left">BLOB</td>
+<td align="left">0 - 65 535字节</td>
+<td align="left">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td align="left">TEXT</td>
+<td align="left">0 - 65 535字节</td>
+<td align="left">长文本数据</td>
+</tr>
+<tr>
+<td align="left">MEDIUMBLOB</td>
+<td align="left">0 - 16 777 215字节</td>
+<td align="left">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td align="left">MEDIUMTEXT</td>
+<td align="left">0 - 16 777 215字节</td>
+<td align="left">中等长度文本数据</td>
+</tr>
+<tr>
+<td align="left">LONGBLOB</td>
+<td align="left">0 - 4 294 967 295字节</td>
+<td align="left">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td align="left">LONGTEXT</td>
+<td align="left">0 - 4 294 967 295字节</td>
+<td align="left">极大文本数据</td>
+</tr>
+</tbody></table>
+<h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p>字符串分二进制与非二进制类型，二进制用于储存图片、声音等文件，非二进制用于储存文本数据。</p>
+<p>非二进制文本受字符集和校对规则影响。</p>
+<p>其实字符集说白了就是字符编码。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>字符集(Character set)是多个字符的集合，字符集种类较多，每个字符集包含的字符个数不同。常用的字符集有<code>GBK</code>、<code>BIG5</code>、<code>UTF8</code>。</p>
+<p><code>UTF8</code>字符集包含文字内容更广，如韩文、日文、德文兼容度更高，也是推荐使用的字符集（<code>UTF8MB4</code>）。</p>
+<blockquote>
+<p>表不设置字符集继承数据库，字段不设置字符集继承表的，所以一般我们在配置文件中为数据库指定字符集即可。</p>
+</blockquote>
+<pre class=" language-mysql"><code class="language-mysql">mysql> SHOW CHARACTER SET; -- 查看服务器支持的字符集
++----------+---------------------------------+---------------------+--------+
+| Charset  | Description                     | Default collation   | Maxlen |
++----------+---------------------------------+---------------------+--------+
+| armscii8 | ARMSCII-8 Armenian              | armscii8_general_ci |      1 |
+| ascii    | US ASCII                        | ascii_general_ci    |      1 |
+| big5     | Big5 Traditional Chinese        | big5_chinese_ci     |      2 |
+| binary   | Binary pseudo charset           | binary              |      1 |
+| cp1250   | Windows Central European        | cp1250_general_ci   |      1 |
+| cp1251   | Windows Cyrillic                | cp1251_general_ci   |      1 |
+| cp1256   | Windows Arabic                  | cp1256_general_ci   |      1 |
+| cp1257   | Windows Baltic                  | cp1257_general_ci   |      1 |
+| cp850    | DOS West European               | cp850_general_ci    |      1 |
+| cp852    | DOS Central European            | cp852_general_ci    |      1 |
+| cp866    | DOS Russian                     | cp866_general_ci    |      1 |
+| cp932    | SJIS for Windows Japanese       | cp932_japanese_ci   |      2 |
+| dec8     | DEC West European               | dec8_swedish_ci     |      1 |
+| eucjpms  | UJIS for Windows Japanese       | eucjpms_japanese_ci |      3 |
+| euckr    | EUC-KR Korean                   | euckr_korean_ci     |      2 |
+| gb18030  | China National Standard GB18030 | gb18030_chinese_ci  |      4 |
+| gb2312   | GB2312 Simplified Chinese       | gb2312_chinese_ci   |      2 |
+| gbk      | GBK Simplified Chinese          | gbk_chinese_ci      |      2 |
+| geostd8  | GEOSTD8 Georgian                | geostd8_general_ci  |      1 |
+| greek    | ISO 8859-7 Greek                | greek_general_ci    |      1 |
+| hebrew   | ISO 8859-8 Hebrew               | hebrew_general_ci   |      1 |
+| hp8      | HP West European                | hp8_english_ci      |      1 |
+| keybcs2  | DOS Kamenicky Czech-Slovak      | keybcs2_general_ci  |      1 |
+| koi8r    | KOI8-R Relcom Russian           | koi8r_general_ci    |      1 |
+| koi8u    | KOI8-U Ukrainian                | koi8u_general_ci    |      1 |
+| latin1   | cp1252 West European            | latin1_swedish_ci   |      1 |
+| latin2   | ISO 8859-2 Central European     | latin2_general_ci   |      1 |
+| latin5   | ISO 8859-9 Turkish              | latin5_turkish_ci   |      1 |
+| latin7   | ISO 8859-13 Baltic              | latin7_general_ci   |      1 |
+| macce    | Mac Central European            | macce_general_ci    |      1 |
+| macroman | Mac West European               | macroman_general_ci |      1 |
+| sjis     | Shift-JIS Japanese              | sjis_japanese_ci    |      2 |
+| swe7     | 7bit Swedish                    | swe7_swedish_ci     |      1 |
+| tis620   | TIS620 Thai                     | tis620_thai_ci      |      1 |
+| ucs2     | UCS-2 Unicode                   | ucs2_general_ci     |      2 |
+| ujis     | EUC-JP Japanese                 | ujis_japanese_ci    |      3 |
+| utf16    | UTF-16 Unicode                  | utf16_general_ci    |      4 |
+| utf16le  | UTF-16LE Unicode                | utf16le_general_ci  |      4 |
+| utf32    | UTF-32 Unicode                  | utf32_general_ci    |      4 |
+| utf8     | UTF-8 Unicode                   | utf8_general_ci     |      3 |
+| utf8mb4  | UTF-8 Unicode                   | utf8mb4_0900_ai_ci  |      4 |
++----------+---------------------------------+---------------------+--------+
+41 rows in set (0.04 sec)</code></pre>
+<h3 id="校对规则"><a href="#校对规则" class="headerlink" title="校对规则"></a>校对规则</h3><p>字符集内用于字符比较和排序的一套规则，以<code>_ci</code>结束的为大小写不敏感、<code>_bin</code>结束的为不区分大小写。</p>
+<p>当使用不区分大小写的校对规则时<code>A</code>与<code>a</code>是相同的，否则则不相同，这会影响到排序与比对。</p>
+<blockquote>
+<p>修改表校对规则，对表的原字段将不影响，只对新增字段影响。</p>
+</blockquote>
+<pre class=" language-mysql"><code class="language-mysql">SHOW COLLATION; -- 查看服务器支持的校对规则</code></pre>
+<h2 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a>基本定义</h2><p>对于字符类型而言，其指定宽度均为存入宽度，以字符为单位。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> create table `test` (
+    -> ch char(5) not null,
+    -> vc varchar(5) not null
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin；</code></pre>
+<h2 id="定长变长"><a href="#定长变长" class="headerlink" title="定长变长"></a>定长变长</h2><h3 id="区别差异"><a href="#区别差异" class="headerlink" title="区别差异"></a>区别差异</h3><p> <code>char</code>是定长字符串，当存入的字符数量不足指定宽度时，将会使用进行填充。</p>
+<p> <code>varchar</code>是变长字符串，当存入的字符数类不足指定宽度时，不会使用任何字符进行填充。</p>
+<blockquote>
+<p><strong>通常情况下来讲</strong>，<code>char</code>的存取速度要比<code>varchar</code>要高（约50%），但是<strong>更加浪费磁盘空间</strong>。</p>
+<p>在<code>InnoDB</code>存储引擎中，不存在这种差异。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>插入值</strong></th>
+<th align="center"><strong>CHAR(4)存入值</strong></th>
+<th align="center"><strong>CHAR(4)占据空间</strong></th>
+<th align="center"><strong>VARCHAR(4)存入值</strong></th>
+<th align="center"><strong>VARCHAR(4)占据空间</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>&#39;&#39;</code></td>
+<td align="center"><code>&#39; &#39;</code></td>
+<td align="center">4 bytes</td>
+<td align="center"><code>&#39;&#39;</code></td>
+<td align="center">1 byte</td>
+</tr>
+<tr>
+<td align="center"><code>&#39;ab&#39;</code></td>
+<td align="center"><code>&#39;ab &#39;</code></td>
+<td align="center">4 bytes</td>
+<td align="center"><code>&#39;ab&#39;</code></td>
+<td align="center">3 bytes</td>
+</tr>
+<tr>
+<td align="center"><code>&#39;abcd&#39;</code></td>
+<td align="center"><code>&#39;abcd&#39;</code></td>
+<td align="center">4 bytes</td>
+<td align="center"><code>&#39;abcd&#39;</code></td>
+<td align="center">5 bytes</td>
+</tr>
+<tr>
+<td align="center"><code>&#39;abcdefgh&#39;</code></td>
+<td align="center"><code>&#39;abcd&#39;</code></td>
+<td align="center">4 bytes</td>
+<td align="center"><code>&#39;abcd&#39;</code></td>
+<td align="center">5 bytes</td>
+</tr>
+</tbody></table>
+<p><strong>由于<code>varchar</code>类型是变长存储，所以需要有一个头部来标识真实内容占了多少字符，这个头部通常占据1个字节。</strong>即存入<code>abcd</code>的时候算上头部实际上是占用了5个字节。这也是为什么说通常情况下<code>varchar</code>比较节省内存，而不是说全部情况。</p>
+<h3 id="差异对比"><a href="#差异对比" class="headerlink" title="差异对比"></a>差异对比</h3><p>如果要想进定长与变长的差异对比试验，需要用到以下两个函数。</p>
+<blockquote>
+<p>length()：查看字节数</p>
+<p>char_length()：查看字符数</p>
+</blockquote>
+<p>建议在同一张数据表中统一使用<code>varchar</code>或<code>char</code>类型，这里更推荐使用<code>char</code>类型。</p>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><h3 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h3><p><code>upper()</code>小写转大写，<code>lower()</code>大写转小写。</p>
+<p>以下将演示大小写转换。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> select upper("justthesame"),lower("JUSTTHESAME");
++----------------------+----------------------+
+| upper("justthesame") | lower("JUSTTHESAME") |
++----------------------+----------------------+
+| JUSTTHESAME          | justthesame          |
++----------------------+----------------------+
 1 row in set (0.00 sec)</code></pre>
-<p>如果我们使用外部电脑连接</p>
-<pre class=" language-mysql"><code class="language-mysql">mysql> select current_user;
-+----------------+
-| current_user   |
-+----------------+
-| root@% |
-+----------------+
+<h3 id="指定量取"><a href="#指定量取" class="headerlink" title="指定量取"></a>指定量取</h3><p><code>left()</code>与<code>right()</code>函数用于取左或右指定数量的字符。</p>
+<p>以下将演示取左边3个字符。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> select left("qwert",3);
++-----------------+
+| left("qwert",3) |
++-----------------+
+| qwe             |
++-----------------+
 1 row in set (0.00 sec)</code></pre>
-<p>则表示当前登陆<code>root</code>账户允许远程和本地登录。</p>
-<h2 id="MySQL账户创建"><a href="#MySQL账户创建" class="headerlink" title="MySQL账户创建"></a>MySQL账户创建</h2><p><strong>MySQL命令语法</strong></p>
-<pre class=" language-mysql"><code class="language-mysql">CREATE USER [IF NOT EXISTS]
-    user [auth_option] [, user [auth_option]] ...
-    DEFAULT ROLE role [, role ] ...
-    [REQUIRE {NONE | tls_option [[AND] tls_option] ...}]
-    [WITH resource_option [resource_option] ...]
-    [password_option | lock_option] ...
-
-user:
-    (see Section 6.2.4, “Specifying Account Names”)
-
-auth_option: {
-    IDENTIFIED BY 'auth_string'
-  | IDENTIFIED WITH auth_plugin
-  | IDENTIFIED WITH auth_plugin BY 'auth_string'
-  | IDENTIFIED WITH auth_plugin AS 'hash_string'
-}
-
-tls_option: {
-   SSL
- | X509
- | CIPHER 'cipher'
- | ISSUER 'issuer'
- | SUBJECT 'subject'
-}
-
-resource_option: {
-    MAX_QUERIES_PER_HOUR count
-  | MAX_UPDATES_PER_HOUR count
-  | MAX_CONNECTIONS_PER_HOUR count
-  | MAX_USER_CONNECTIONS count
-}
-
-password_option: {
-    PASSWORD EXPIRE [DEFAULT | NEVER | INTERVAL N DAY]
-  | PASSWORD HISTORY {DEFAULT | N}
-  | PASSWORD REUSE INTERVAL {DEFAULT | N DAY}
-  | PASSWORD REQUIRE CURRENT [DEFAULT | OPTIONAL]
-}
-
-lock_option: {
-    ACCOUNT LOCK
-  | ACCOUNT UNLOCK
-}</code></pre>
-<ul>
-<li><p><code>user</code> ：账户名称，语法是 <code>&#39;user_name&#39;@&#39;host_name&#39;</code> ，其中主机地址可以写为 <code>%</code>表示接受任何地址的连接。</p>
-</li>
-<li><p><code>auth_option</code> ：身份验证方式，可以指定密码以及认证插件<code>（mysql_native_password、sha256_password、caching_sha2_password）</code>。</p>
-</li>
-<li><p><code>tls_option</code>： 加密连接选项。</p>
-</li>
-<li><p><code>resource_option</code>： 用户资源限制，比如每小时最大连接数。</p>
-</li>
-<li><p><code>password_option</code>： 密码额外的控制，比如设定失效时间。</p>
-</li>
-<li><p><code>lock_option</code>： 账户锁定选项，由管理员上锁或者解锁 <code>（ACCOUNT LOCK | ACCOUNT UNLOCK）</code>。</p>
-</li>
-</ul>
-<p>最简单的就是指定账户名+密码</p>
-<pre class=" language-mysql"><code class="language-mysql">CREATE USER 'tian'@'localhost' IDENTIFIED BY 'password';</code></pre>
-<p>加上认证插件</p>
-<pre class=" language-mysql"><code class="language-mysql">CREATE USER 'tian'@'localhost' IDENTIFIED WITH sha256_password BY 'password';</code></pre>
-<p>指定密码过期，以便用户第一次使用的时候需要修改密码</p>
-<pre class=" language-mysql"><code class="language-mysql">CREATE USER 'tian'@'localhost' IDENTIFIED BY 'new_password' PASSWORD EXPIRE;</code></pre>
-<p>也可以指定每隔一段时间修改一次新密码</p>
-<pre class=" language-mysql"><code class="language-mysql">CREATE USER 'tian'@'localhost' IDENTIFIED BY 'new_password' PASSWORD EXPIRE INTERVAL 180 DAY;</code></pre>
-<p>可以指定加密连接</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 不使用加密连接
-CREATE USER 'tian'@'localhost' REQUIRE NONE；
--- 使用加密连接
-CREATE USER 'tian'@'localhost' REQUIRE SSL;
--- 使用加密连接，并要求客户端提供有效证书
-CREATE USER 'tian'@'localhost' REQUIRE X509;
-
-CREATE USER 'tian'@'localhost' REQUIRE ISSUER 'CA颁发的有效X.509证书';
-
-CREATE USER 'tian'@'localhost' REQUIRE SUBJECT '包含主题的有效X.509证书';
-
-CREATE USER 'tian'@'localhost' REQUIRE CIPHER '指定的加密方法';</code></pre>
-<p>可以指定资源控制</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 单位小时内，账户被允许查询500次，更新100次，单位小时内最大连接数不限制。最大并发连接数不限制
-CREATE USER 'tian'@'localhost' WITH MAX_QUERIES_PER_HOUR 500 MAX_UPDATES_PER_HOUR 100 MAX_CONNECTIONS_PER_HOUR 0 MAX_USER_CONNECTIONS 0；</code></pre>
-<p>可以锁定账户</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 锁定
-CREATE USER 'tian'@'localhost' ACCOUNT LOCK
--- 解锁
-ALTER USER 'tian'@'localhost' ACCOUNT UNLOCK</code></pre>
-<p>最后完整的命令选项大概这个样子</p>
-<pre class=" language-mysql"><code class="language-mysql">CREATE USER 'user_name'@'host_name' IDENTIFIED [WITH auth_plugin] BY 'auth_string' [REQUIRE NONE(SSL,X509)] [WITH MAX_QUERIES_PER_HOUR count | MAX_UPDATES_PER_HOUR count | MAX_CONNECTIONS_PER_HOUR count | MAX_USER_CONNECTIONS count] [PASSWORD EXPIRE] [ACCOUNT LOCK]</code></pre>
-<p>如果你要删除账户</p>
-<pre class=" language-mysql"><code class="language-mysql">DROP USER 'tian'@'localhost';</code></pre>
-<p>如果你要修改名称</p>
-<pre class=" language-mysql"><code class="language-mysql">RENAME USER 'tian'@'localhost' TO 'tina'@'127.0.0.1';</code></pre>
-<h2 id="MySQL角色创建"><a href="#MySQL角色创建" class="headerlink" title="MySQL角色创建"></a>MySQL角色创建</h2><p>MySQL8里新加入了对于角色的管理，下面就简单的说一下如何使用：<br>角色可以理解为一组权限的集合，然后将角色赋给某个帐户，该帐户就拥有了角色对应的权限，每个帐户可以拥有多个角色，就像游戏里，你可以有很多称号一样。</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 名字规范
-'role_name'@'host_name'
--- 通常仅使用用户名部分指定角色名称，并隐式使用主机名部分 '%'，主机名部分没有任何意义
-'admin'</code></pre>
-<p>创建角色</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 省略主机名，默认为 '%'
-CREATE ROLE 'admin', 'dev';
--- 这种也可以，但是没意义
-CREATE ROLE 'app'@'localhost';</code></pre>
-<p>移除角色</p>
-<pre class=" language-mysql"><code class="language-mysql">DROP ROLE 'admin', 'dev';</code></pre>
-<h2 id="MySQL账户更新"><a href="#MySQL账户更新" class="headerlink" title="MySQL账户更新"></a>MySQL账户更新</h2><p><strong>MySQL命令语法</strong></p>
-<pre class=" language-mysql"><code class="language-mysql">ALTER USER [IF EXISTS]
-    user [auth_option] [, user [auth_option]] ...
-    [REQUIRE {NONE | tls_option [[AND] tls_option] ...}]
-    [WITH resource_option [resource_option] ...]
-    [password_option | lock_option] ...
-
-ALTER USER [IF EXISTS] USER() user_func_auth_option
-
-ALTER USER [IF EXISTS]
-    user DEFAULT ROLE
-    {NONE | ALL | role [, role ] ...}
-
-user:
-    (see Section 6.2.4, “Specifying Account Names”)
-
-auth_option: {
-    IDENTIFIED BY 'auth_string'
-        [REPLACE 'current_auth_string']
-        [RETAIN CURRENT PASSWORD]
-  | IDENTIFIED WITH auth_plugin
-  | IDENTIFIED WITH auth_plugin BY 'auth_string'
-        [REPLACE 'current_auth_string']
-        [RETAIN CURRENT PASSWORD]
-  | IDENTIFIED WITH auth_plugin AS 'auth_string'
-  | DISCARD OLD PASSWORD
-}
-
-user_func_auth_option: {
-    IDENTIFIED BY 'auth_string'
-        [REPLACE 'current_auth_string']
-        [RETAIN CURRENT PASSWORD]
-  | DISCARD OLD PASSWORD
-}
-
-tls_option: {
-   SSL
- | X509
- | CIPHER 'cipher'
- | ISSUER 'issuer'
- | SUBJECT 'subject'
-}
-
-resource_option: {
-    MAX_QUERIES_PER_HOUR count
-  | MAX_UPDATES_PER_HOUR count
-  | MAX_CONNECTIONS_PER_HOUR count
-  | MAX_USER_CONNECTIONS count
-}
-
-password_option: {
-    PASSWORD EXPIRE [DEFAULT | NEVER | INTERVAL N DAY]
-  | PASSWORD HISTORY {DEFAULT | N}
-  | PASSWORD REUSE INTERVAL {DEFAULT | N DAY}
-  | PASSWORD REQUIRE CURRENT [DEFAULT | OPTIONAL]
-}
-
-lock_option: {
-    ACCOUNT LOCK
-  | ACCOUNT UNLOCK
-}</code></pre>
-<p>参数选项参考创建账户。</p>
-<p>修改自己当前的密码</p>
-<pre class=" language-mysql"><code class="language-mysql">ALTER USER USER() IDENTIFIED BY 'new_password';</code></pre>
-<p>修改账户密码</p>
-<pre class=" language-mysql"><code class="language-mysql">ALTER USER 'tian'@'localhost' IDENTIFIED BY 'new_password';</code></pre>
-<p>修改认证插件</p>
-<pre class=" language-mysql"><code class="language-mysql">ALTER USER 'tian'@'localhost' IDENTIFIED WITH mysql_native_password;</code></pre>
-<p>修改密码和插件</p>
-<pre class=" language-mysql"><code class="language-mysql">ALTER USER 'tian'@'localhost' IDENTIFIED WITH mysql_native_password BY 'new_password';</code></pre>
-<p>修改角色</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 授予自定义角色
-ALTER USER 'tian'@'localhost' DEFAULT ROLE your_role_name;
--- 无角色
-ALTER USER 'tian'@'localhost' DEFAULT ROLE NONE;
--- 所有角色
-ALTER USER 'tian'@'localhost' DEFAULT ROLE ALL;</code></pre>
-<p>修改加密方式</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 只有账户密码正确，无须加密连接
-ALTER USER 'tian'@'localhost' REQUIRE NONE;
--- 需要加密连接
-ALTER USER 'tian'@'localhost' REQUIRE SSL;
-...</code></pre>
-<p>修改资源访问</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 单位小时内，最大查询数量和更新数量
-ALTER USER 'tian'@'localhost' WITH MAX_QUERIES_PER_HOUR 500 MAX_UPDATES_PER_HOUR 100;</code></pre>
-<p>指定密码过期</p>
-<pre class=" language-mysql"><code class="language-mysql">ALTER USER 'tian'@'localhost' PASSWORD EXPIRE;</code></pre>
-<p>修改锁定解锁</p>
-<pre class=" language-mysql"><code class="language-mysql">ALTER USER 'tian'@'localhost' ACCOUNT LOCK;
-ALTER USER 'tian'@'localhost' ACCOUNT UNLOCK;</code></pre>
-<h2 id="MySQL账户授权"><a href="#MySQL账户授权" class="headerlink" title="MySQL账户授权"></a>MySQL账户授权</h2><p><strong>MySQL命令语法</strong></p>
-<pre class=" language-mysql"><code class="language-mysql">GRANT
-    priv_type [(column_list)]
-      [, priv_type [(column_list)]] ...
-    ON [object_type] priv_level
-    TO user_or_role [, user_or_role] ...
-    [WITH GRANT OPTION]
-    [AS user
-        [WITH ROLE
-            DEFAULT
-          | NONE
-          | ALL
-          | ALL EXCEPT role [, role ] ...
-          | role [, role ] ...
-        ]
-    ]
-}
-
-GRANT PROXY ON user_or_role
-    TO user_or_role [, user_or_role] ...
-    [WITH GRANT OPTION]
-
-GRANT role [, role] ...
-    TO user_or_role [, user_or_role] ...
-    [WITH ADMIN OPTION]
-
-object_type: {
-    TABLE
-  | FUNCTION
-  | PROCEDURE
-}
-
-priv_level: {
-    *
-  | *.*
-  | db_name.*
-  | db_name.tbl_name
-  | tbl_name
-  | db_name.routine_name
-}
-
-user_or_role: {
-    user
-  | role
-}
-
-user:
-    (see Section 6.2.4, “Specifying Account Names”)
-
-role:
-    (see Section 6.2.5, “Specifying Role Names”)</code></pre>
-<p><code>GRANT</code>语法使得管理员能够授予账户<strong>权限或者角色</strong>，但是<code>GRANT</code><strong>不能</strong>再一个语句中同时授予权限和角色。</p>
-<ul>
-<li><strong>有ON，是授予权限</strong></li>
-<li><strong>无ON，是授予角色</strong></li>
-</ul>
-<pre class=" language-mysql"><code class="language-mysql">-- 授予数据库db1的所有权限给指定账户
-GRANT ALL ON db1.* TO 'tian'@'localhost';
--- 授予角色给指定的账户
-GRANT 'role1', 'role2' TO 'user1'@'localhost', 'user2'@'localhost';
--- 授予数据库world的SELECT权限给指定的角色
-GRANT SELECT ON world.* TO 'role3';</code></pre>
-<p> 基本语法</p>
-<pre class=" language-mysql"><code class="language-mysql">GRANT [权限] ON [数据库名].[表名] TO 'user_name'@'localhost' ...;
--- 授予所有数据库的权限
-GRANT [权限] ON *.* TO 'user_name'@'localhost' ...;</code></pre>
-<p> 注：全局权限是管理或适用于给定服务器上的所有数据库。要分配全局权限，请使用 <code>ON *.*</code>语法</p>
-<p>下面是权限列表</p>
-<pre class=" language-mysql"><code class="language-mysql">mysql> show privileges;
-+----------------------------+---------------------------------------+-------------------------------------------------------+
-| Privilege                  | Context                               | Comment                                               |
-+----------------------------+---------------------------------------+-------------------------------------------------------+
-| Alter                      | Tables                                | To alter the table                                    |
-| Alter routine              | Functions,Procedures                  | To alter or drop stored functions/procedures          |
-| Create                     | Databases,Tables,Indexes              | To create new databases and tables                    |
-| Create routine             | Databases                             | To use CREATE FUNCTION/PROCEDURE                      |
-| Create role                | Server Admin                          | To create new roles                                   |
-| Create temporary tables    | Databases                             | To use CREATE TEMPORARY TABLE                         |
-| Create view                | Tables                                | To create new views                                   |
-| Create user                | Server Admin                          | To create new users                                   |
-| Delete                     | Tables                                | To delete existing rows                               |
-| Drop                       | Databases,Tables                      | To drop databases, tables, and views                  |
-| Drop role                  | Server Admin                          | To drop roles                                         |
-| Event                      | Server Admin                          | To create, alter, drop and execute events             |
-| Execute                    | Functions,Procedures                  | To execute stored routines                            |
-| File                       | File access on server                 | To read and write files on the server                 |
-| Grant option               | Databases,Tables,Functions,Procedures | To give to other users those privileges you possess   |
-| Index                      | Tables                                | To create or drop indexes                             |
-| Insert                     | Tables                                | To insert data into tables                            |
-| Lock tables                | Databases                             | To use LOCK TABLES (together with SELECT privilege)   |
-| Process                    | Server Admin                          | To view the plain text of currently executing queries |
-| Proxy                      | Server Admin                          | To make proxy user possible                           |
-| References                 | Databases,Tables                      | To have references on tables                          |
-| Reload                     | Server Admin                          | To reload or refresh tables, logs and privileges      |
-| Replication client         | Server Admin                          | To ask where the slave or master servers are          |
-| Replication slave          | Server Admin                          | To read binary log events from the master             |
-| Select                     | Tables                                | To retrieve rows from table                           |
-| Show databases             | Server Admin                          | To see all databases with SHOW DATABASES              |
-| Show view                  | Tables                                | To see views with SHOW CREATE VIEW                    |
-| Shutdown                   | Server Admin                          | To shut down the server                               |
-| Super                      | Server Admin                          | To use KILL thread, SET GLOBAL, CHANGE MASTER, etc.   |
-| Trigger                    | Tables                                | To use triggers                                       |
-| Create tablespace          | Server Admin                          | To create/alter/drop tablespaces                      |
-| Update                     | Tables                                | To update existing rows                               |
-| Usage                      | Server Admin                          | No privileges - allow connect only                    |
-| XA_RECOVER_ADMIN           | Server Admin                          |                                                       |
-| SHOW_ROUTINE               | Server Admin                          |                                                       |
-| RESOURCE_GROUP_USER        | Server Admin                          |                                                       |
-| SET_USER_ID                | Server Admin                          |                                                       |
-| SESSION_VARIABLES_ADMIN    | Server Admin                          |                                                       |
-| CLONE_ADMIN                | Server Admin                          |                                                       |
-| PERSIST_RO_VARIABLES_ADMIN | Server Admin                          |                                                       |
-| ROLE_ADMIN                 | Server Admin                          |                                                       |
-| BACKUP_ADMIN               | Server Admin                          |                                                       |
-| CONNECTION_ADMIN           | Server Admin                          |                                                       |
-| RESOURCE_GROUP_ADMIN       | Server Admin                          |                                                       |
-| INNODB_REDO_LOG_ARCHIVE    | Server Admin                          |                                                       |
-| BINLOG_ENCRYPTION_ADMIN    | Server Admin                          |                                                       |
-| REPLICATION_SLAVE_ADMIN    | Server Admin                          |                                                       |
-| SYSTEM_VARIABLES_ADMIN     | Server Admin                          |                                                       |
-| GROUP_REPLICATION_ADMIN    | Server Admin                          |                                                       |
-| SYSTEM_USER                | Server Admin                          |                                                       |
-| APPLICATION_PASSWORD_ADMIN | Server Admin                          |                                                       |
-| TABLE_ENCRYPTION_ADMIN     | Server Admin                          |                                                       |
-| SERVICE_CONNECTION_ADMIN   | Server Admin                          |                                                       |
-| AUDIT_ADMIN                | Server Admin                          |                                                       |
-| BINLOG_ADMIN               | Server Admin                          |                                                       |
-| ENCRYPTION_KEY_ADMIN       | Server Admin                          |                                                       |
-| INNODB_REDO_LOG_ENABLE     | Server Admin                          |                                                       |
-| REPLICATION_APPLIER        | Server Admin                          |                                                       |
-+----------------------------+---------------------------------------+-------------------------------------------------------+
-58 rows in set (0.00 sec)</code></pre>
-<p>权限范围示例</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 数据库权限
-GRANT ALL ON mydb.* TO 'user_name'@'host_name';
--- 表权限
-GRANT ALL ON mydb.mytable TO 'user_name'@'host_name';
--- 列权限
-GRANT SELECT (col1), INSERT (col1, col2) ON mydb.mytable TO 'user_name'@'host_name';
-
--- 存储过程权限
-GRANT CREATE ROUTINE ON mydb.* TO 'user_name'@'host_name';
-GRANT EXECUTE ON PROCEDURE mydb.myproc TO 'user_name'@'host_name';</code></pre>
-<p> 授权之后可以使用<code>flush</code>命令使其立即生效</p>
-<pre class=" language-mysql"><code class="language-mysql">FLUSH PRIVILEGES</code></pre>
-<h2 id="FLUSH语法"><a href="#FLUSH语法" class="headerlink" title="FLUSH语法"></a>FLUSH语法</h2><pre class=" language-mysql"><code class="language-mysql">FLUSH [NO_WRITE_TO_BINLOG | LOCAL] {
-    flush_option [, flush_option] ...
-  | tables_option
-}
-
-flush_option: {
-    BINARY LOGS
-  | ENGINE LOGS
-  | ERROR LOGS
-  | GENERAL LOGS
-  | HOSTS
-  | LOGS
-  | PRIVILEGES
-  | OPTIMIZER_COSTS
-  | RELAY LOGS [FOR CHANNEL channel]
-  | SLOW LOGS
-  | STATUS
-  | USER_RESOURCES
-}
-
-tables_option: {
-    TABLES
-  | TABLES tbl_name [, tbl_name] ...
-  | TABLES WITH READ LOCK
-  | TABLES tbl_name [, tbl_name] ... WITH READ LOCK
-  | TABLES tbl_name [, tbl_name] ... FOR EXPORT
-}</code></pre>
-<p><strong>FLUSH PRIVILEGES</strong> 包含以下操作</p>
-<ol>
-<li><p>重新加载<code>mysql</code>系统数据库中的<code>grant</code>表中的权限信息，并清除<code>caching_sha2_password</code>身份验证插件使用的内存缓存。</p>
-</li>
-<li><p>服务器读取包含动态特权分配的<code>global_grants</code>表，并注册其中的任何未注册特权。</p>
-</li>
-<li><p>服务器通过<code>GRANT、CREATE USER、CREATE SERVER和INSTALL PLUGIN</code>语句将信息缓存到内存中。对应的<code>REVOKE、DROP USER、DROP SERVER和UNINSTALL</code>插件语句不会释放这些内存，因此对于执行许多导致缓存的语句实例的服务器，内存使用量将会增加。可以使用刷新特权释放此缓存内存。</p>
-</li>
-</ol>
-<p><strong>FLUSH TABLES</strong> 包含以下操作</p>
-<p>关闭所有打开的表，强制关闭所有正在使用的表，并刷新准备好的语句缓存。</p>
-<h2 id="REVOKE语法"><a href="#REVOKE语法" class="headerlink" title="REVOKE语法"></a>REVOKE语法</h2><p>既然可以授权，那么就可以撤销</p>
-<pre class=" language-mysql"><code class="language-mysql">REVOKE
-    priv_type [(column_list)]
-      [, priv_type [(column_list)]] ...
-    ON [object_type] priv_level
-    FROM user_or_role [, user_or_role] ...
-
-REVOKE ALL [PRIVILEGES], GRANT OPTION
-    FROM user_or_role [, user_or_role] ...
-
-REVOKE PROXY ON user_or_role
-    FROM user_or_role [, user_or_role] ...
-
-REVOKE role [, role ] ...
-    FROM user_or_role [, user_or_role ] ...
-
-user_or_role: {
-    user
-  | role
-}
-
-user:
-    (see Section 6.2.4, “Specifying Account Names”)
-
-role:
-    (see Section 6.2.5, “Specifying Role Names”.</code></pre>
-<p><code>REVOKE</code>可以实现权限或者角色的撤销（前提：拥有GRANT权限和REVOKE权限）</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 撤销用户的INSERT权限
-REVOKE INSERT ON *.* FROM 'tian'@'localhost';
--- 撤销用户的指定角色
-REVOKE 'role1', 'role2' FROM 'user1'@'localhost', 'user2'@'localhost';
--- 撤销角色的INSERT权限
-REVOKE SELECT ON world.* FROM 'role3';</code></pre>
-<p>撤销所有权限（只能撤销权限，不能撤销角色）</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 从账户或者角色上撤销所有权限
-REVOKE ALL PRIVILEGES, GRANT OPTION FROM user_or_role [, user_or_role] ...
--- 撤销账户
-REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'tian'@'localhost'
--- 撤销角色
-REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'role3'</code></pre>
-<p>在全局上撤销权限（<em>.</em>）</p>
-<pre class=" language-mysql"><code class="language-mysql">-- 全局上撤销所有权限
-REVOKE ALL ON *.* FROM 'tian'@'localhost';</code></pre>
+<h3 id="中间字符"><a href="#中间字符" class="headerlink" title="中间字符"></a>中间字符</h3><p><code>mid()</code>从中间取字符串，参数二为指定起始位置（从1开始），参数三为取的字符数量（可不指定，一直取完）。</p>
+<p>以下将演示从第二个字符开始取两个。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> select mid("qwert",2,2);
++------------------+
+| mid("qwert",2,2) |
++------------------+
+| we               |
++------------------+
+1 row in set (0.00 sec)</code></pre>
+<h3 id="截取字符"><a href="#截取字符" class="headerlink" title="截取字符"></a>截取字符</h3><p> <code>substring()</code>从指定起始位置开始取出向右所有字符串，可指定结束位置。（其实我感觉这个和<code>mid()</code>好像没啥区别）。</p>
+<p>以下将演示截取第一个字符到第四个字符。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> select substring("qwertyui",1,4);
++---------------------------+
+| substring("qwertyui",1,4) |
++---------------------------+
+| qwer                      |
++---------------------------+
+1 row in set (0.00 sec)</code></pre>
+<h3 id="字符长度"><a href="#字符长度" class="headerlink" title="字符长度"></a>字符长度</h3><p><code>char_length()</code>可获取字符长度，如果要获取<code>char</code>类型的字符长度且包括填充空白符，需要修改<code>sql</code>模式。</p>
+<p>修改<code>sql</code>模式：<code>SET sql_mode = &#39;PAD_CHAR_TO_FULL_LENGTH&#39;;</code></p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> select char_length("qwertyu");
++------------------------+
+| char_length("qwertyu") |
++------------------------+
+|                      7 |
++------------------------+
+1 row in set (0.00 sec)</code></pre>
+<h3 id="字节长度"><a href="#字节长度" class="headerlink" title="字节长度"></a>字节长度</h3><p><code>length()</code>可获取字节长度。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> select length("qwertyu");
++-------------------+
+| length("qwertyu") |
++-------------------+
+|                 7 |
++-------------------+
+1 row in set (0.00 sec)</code></pre>
+<h3 id="字符连接"><a href="#字符连接" class="headerlink" title="字符连接"></a>字符连接</h3><p><code>concat()</code>可将多段字符进行连接。</p>
+<pre class=" language-mysql"><code class="language-mysql">mysql> select concat("123","abc","456","def");
++---------------------------------+
+| concat("123","abc","456","def") |
++---------------------------------+
+| 123abc456def                    |
++---------------------------------+
+1 row in set (0.00 sec)</code></pre>
 
       
     </div>
@@ -959,8 +710,8 @@ REVOKE ALL ON *.* FROM 'tian'@'localhost';</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/09/17/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" rel="next" title="MySQL的安装与配置">
-                <i class="fa fa-chevron-left"></i> MySQL的安装与配置
+              <a href="/2020/09/24/MySQL%E7%9A%84%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B/" rel="next" title="MySQL的数值类型">
+                <i class="fa fa-chevron-left"></i> MySQL的数值类型
               </a>
             
           </div>
@@ -968,10 +719,6 @@ REVOKE ALL ON *.* FROM 'tian'@'localhost';</code></pre>
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/09/21/MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" rel="prev" title="MySQL的数据库操作">
-                MySQL的数据库操作 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -1138,7 +885,7 @@ REVOKE ALL ON *.* FROM 'tian'@'localhost';</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据库连接"><span class="nav-number">1.</span> <span class="nav-text">MySQL数据库连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL账户查看"><span class="nav-number">2.</span> <span class="nav-text">MySQL账户查看</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看已有账户"><span class="nav-number">2.1.</span> <span class="nav-text">查看已有账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看当前账户"><span class="nav-number">2.2.</span> <span class="nav-text">查看当前账户</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL账户创建"><span class="nav-number">3.</span> <span class="nav-text">MySQL账户创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL角色创建"><span class="nav-number">4.</span> <span class="nav-text">MySQL角色创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL账户更新"><span class="nav-number">5.</span> <span class="nav-text">MySQL账户更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL账户授权"><span class="nav-number">6.</span> <span class="nav-text">MySQL账户授权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FLUSH语法"><span class="nav-number">7.</span> <span class="nav-text">FLUSH语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REVOKE语法"><span class="nav-number">8.</span> <span class="nav-text">REVOKE语法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符类型"><span class="nav-number">1.</span> <span class="nav-text">字符类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符集"><span class="nav-number">2.</span> <span class="nav-text">字符集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#校对规则"><span class="nav-number">2.2.</span> <span class="nav-text">校对规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本定义"><span class="nav-number">3.</span> <span class="nav-text">基本定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定长变长"><span class="nav-number">4.</span> <span class="nav-text">定长变长</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区别差异"><span class="nav-number">4.1.</span> <span class="nav-text">区别差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#差异对比"><span class="nav-number">4.2.</span> <span class="nav-text">差异对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用函数"><span class="nav-number">5.</span> <span class="nav-text">常用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大小写转换"><span class="nav-number">5.1.</span> <span class="nav-text">大小写转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定量取"><span class="nav-number">5.2.</span> <span class="nav-text">指定量取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间字符"><span class="nav-number">5.3.</span> <span class="nav-text">中间字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#截取字符"><span class="nav-number">5.4.</span> <span class="nav-text">截取字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符长度"><span class="nav-number">5.5.</span> <span class="nav-text">字符长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字节长度"><span class="nav-number">5.6.</span> <span class="nav-text">字节长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符连接"><span class="nav-number">5.7.</span> <span class="nav-text">字符连接</span></a></li></ol></li></ol></div>
             
 
           </div>
